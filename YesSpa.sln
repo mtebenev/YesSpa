@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testing", "testing", "{EECF96A0-DDA8-4862-9FD6-590F654907A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{4C74F8C2-4D48-4334-82DD-330EDC06C658}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "abp", "abp", "{F001E185-ED7E-4607-90C3-334F8DED5654}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientApp.React", "samples\abp\ClientApp.React\ClientApp.React.csproj", "{04484AA6-6485-4607-86FC-106A6385E6A4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientApp.Angular", "samples\abp\ClientApp.Angular\ClientApp.Angular.csproj", "{0008F283-56A2-4EC5-AC72-A11F3C89BF65}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbpHost.Web", "samples\abp\AbpHost.Web\AbpHost.Web.csproj", "{628FCC1B-CE70-4B0C-AF59-B36A3181186D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04484AA6-6485-4607-86FC-106A6385E6A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04484AA6-6485-4607-86FC-106A6385E6A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04484AA6-6485-4607-86FC-106A6385E6A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04484AA6-6485-4607-86FC-106A6385E6A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0008F283-56A2-4EC5-AC72-A11F3C89BF65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0008F283-56A2-4EC5-AC72-A11F3C89BF65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0008F283-56A2-4EC5-AC72-A11F3C89BF65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0008F283-56A2-4EC5-AC72-A11F3C89BF65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{628FCC1B-CE70-4B0C-AF59-B36A3181186D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{628FCC1B-CE70-4B0C-AF59-B36A3181186D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{628FCC1B-CE70-4B0C-AF59-B36A3181186D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{628FCC1B-CE70-4B0C-AF59-B36A3181186D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F001E185-ED7E-4607-90C3-334F8DED5654} = {4C74F8C2-4D48-4334-82DD-330EDC06C658}
+		{04484AA6-6485-4607-86FC-106A6385E6A4} = {F001E185-ED7E-4607-90C3-334F8DED5654}
+		{0008F283-56A2-4EC5-AC72-A11F3C89BF65} = {F001E185-ED7E-4607-90C3-334F8DED5654}
+		{628FCC1B-CE70-4B0C-AF59-B36A3181186D} = {F001E185-ED7E-4607-90C3-334F8DED5654}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5F66EBCF-AD86-4814-8A23-A0EB134651EE}
+	EndGlobalSection
+EndGlobal
