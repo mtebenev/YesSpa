@@ -3,6 +3,7 @@ using Abp.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using YesSpa.Abp;
 
 namespace YesSpa.Samples.Abp.AbpHost.Web
 {
@@ -26,7 +27,10 @@ namespace YesSpa.Samples.Abp.AbpHost.Web
       if(env.IsDevelopment())
         app.UseDeveloperExceptionPage();
 
+      app.UseEmbeddedFiles();
       app.UseMvc();
+
+      app.UseAbpSpa();
     }
   }
 }
