@@ -30,7 +30,7 @@ namespace YesSpa.Samples.Abp.AbpHost.Web
       app.UseEmbeddedFiles();
       app.UseMvc();
 
-      app.UseAbpSpa();
+      app.UseAbpSpa("/react/index.html");
     }
   }
 }
