@@ -14,7 +14,7 @@ namespace YesSpa.Abp
     IApplicationBuilder ApplicationBuilder { get; }
 
     /// <summary>
-    /// Describes configuration options for hosting a SPA.
+    /// Run-time options for hosting SPA(s).
     /// </summary>
     YesSpaOptions Options { get; }
   }

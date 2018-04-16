@@ -14,6 +14,7 @@ namespace YesSpa.Samples.Abp.AbpHost.Web
     public IServiceProvider ConfigureServices(IServiceCollection services)
     {
       services.AddMvc();
+      services.AddYesSpa();
       var result = services.AddAbp<AbpHostWebModule>();
 
       return result;
@@ -30,8 +31,7 @@ namespace YesSpa.Samples.Abp.AbpHost.Web
       app.UseEmbeddedFiles();
       app.UseMvc();
 
-      app.UseAbpSpa("/react/index.html");
-      app.UseAbpSpa("/angular/index.html");
+      app.UseAbpSpa();
     }
   }
 }

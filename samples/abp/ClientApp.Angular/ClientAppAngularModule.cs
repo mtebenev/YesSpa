@@ -11,7 +11,7 @@ namespace YesSpa.Samples.Abp.ClientApp.Angular
       string rootPath = "/angular/";
       var assembly = Assembly.GetExecutingAssembly();
       var resourceNamespace = "YesSpa.Samples.Abp.ClientApp.Angular.client_app.dist";
-      Configuration.ConfigureSpa(rootPath, assembly, resourceNamespace);
+      Configuration.ConfigureSpa(rootPath, resourceNamespace, assembly);
     }
   }
 }
