@@ -5,16 +5,15 @@
     <RootNamespace>YesSpa.Samples.Abp.ClientApp.Angular</RootNamespace>
   </PropertyGroup>
 
-  <!-- TODO MTE: automate -->
-  <PropertyGroup>
-    <DefaultItemExcludes>client-app-angular/build/**;client-app-angular/node_modules/**;$(DefaultItemExcludes)</DefaultItemExcludes>
-  </PropertyGroup>
+  <!-- Necessary as we reference the Project and not the Package -->
+  <Import Project="..\..\..\YesSpa.AbpModule.Targets\YesSpa.AbpModule.Targets.props" />
 
   <ItemGroup>
     <PackageReference Include="Abp" Version="3.5.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\YesSpa.AbpModule.Targets\YesSpa.AbpModule.Targets.csproj" />
     <ProjectReference Include="..\..\..\YesSpa.Abp\YesSpa.Abp.csproj" />
   </ItemGroup>
 </Project>

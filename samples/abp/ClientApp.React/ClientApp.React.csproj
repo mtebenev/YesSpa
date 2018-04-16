@@ -5,4 +5,15 @@
     <RootNamespace>YesSpa.Samples.Abp.ClientApp.React</RootNamespace>
   </PropertyGroup>
 
+  <!-- Necessary as we reference the Project and not the Package -->
+  <Import Project="..\..\..\YesSpa.AbpModule.Targets\YesSpa.AbpModule.Targets.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Abp" Version="3.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\YesSpa.AbpModule.Targets\YesSpa.AbpModule.Targets.csproj" />
+    <ProjectReference Include="..\..\..\YesSpa.Abp\YesSpa.Abp.csproj" />
+  </ItemGroup>
 </Project>

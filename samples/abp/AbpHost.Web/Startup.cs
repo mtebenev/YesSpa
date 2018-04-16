@@ -31,6 +31,7 @@ namespace YesSpa.Samples.Abp.AbpHost.Web
       app.UseMvc();
 
       app.UseAbpSpa("/react/index.html");
+      app.UseAbpSpa("/angular/index.html");
     }
   }
 }

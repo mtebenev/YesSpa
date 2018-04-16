@@ -1,0 +1,12 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Convention: a module must contain one client application located in client-app folder  -->
+  <PropertyGroup>
+    <DefaultItemExcludes>client-app/dist/**;client-app/build/**;client-app/node_modules/**;$(DefaultItemExcludes)</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="client-app/build/**;client-app/dist/**" />
+  </ItemGroup>
+
+</Project>

@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientApp.Angular", "sample
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbpHost.Web", "samples\abp\AbpHost.Web\AbpHost.Web.csproj", "{628FCC1B-CE70-4B0C-AF59-B36A3181186D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YesSpa.Abp", "YesSpa.Abp\YesSpa.Abp.csproj", "{19112ECC-5EC2-46ED-8911-ED2E91C69B31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YesSpa.Abp", "YesSpa.Abp\YesSpa.Abp.csproj", "{19112ECC-5EC2-46ED-8911-ED2E91C69B31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YesSpa.AbpModule.Targets", "YesSpa.AbpModule.Targets\YesSpa.AbpModule.Targets.csproj", "{DFD5BD89-5DF0-4C7E-BE81-1E2DD958D954}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{19112ECC-5EC2-46ED-8911-ED2E91C69B31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19112ECC-5EC2-46ED-8911-ED2E91C69B31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19112ECC-5EC2-46ED-8911-ED2E91C69B31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFD5BD89-5DF0-4C7E-BE81-1E2DD958D954}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFD5BD89-5DF0-4C7E-BE81-1E2DD958D954}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFD5BD89-5DF0-4C7E-BE81-1E2DD958D954}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFD5BD89-5DF0-4C7E-BE81-1E2DD958D954}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
