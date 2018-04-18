@@ -29,9 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Host.Web", "samp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YesSpa.Client.Targets", "YesSpa.Client.Targets\YesSpa.Client.Targets.csproj", "{08EE2660-E974-474D-8028-FB3BA48DBAE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YesSpa.AspNetCore", "YesSpa.AspNetCore\YesSpa.AspNetCore.csproj", "{0752FEC7-BB57-4E19-BEAA-CD7AF58A8875}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YesSpa.AspNetCore", "YesSpa.AspNetCore\YesSpa.AspNetCore.csproj", "{0752FEC7-BB57-4E19-BEAA-CD7AF58A8875}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YesSpa.Common", "YesSpa.Common\YesSpa.Common.csproj", "{EDDBC46C-BCF3-425C-9233-ED43F37A72CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YesSpa.Common", "YesSpa.Common\YesSpa.Common.csproj", "{EDDBC46C-BCF3-425C-9233-ED43F37A72CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
