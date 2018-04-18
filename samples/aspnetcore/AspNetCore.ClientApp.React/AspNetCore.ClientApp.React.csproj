@@ -4,4 +4,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <!-- Necessary as we reference the Project and not the Package -->
+  <Import Project="..\..\..\YesSpa.AbpModule.Targets\YesSpa.AbpModule.Targets.props" />
 </Project>
