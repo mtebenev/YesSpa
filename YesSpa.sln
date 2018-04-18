@@ -9,15 +9,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{4C74
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "abp", "abp", "{F001E185-ED7E-4607-90C3-334F8DED5654}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientApp.React", "samples\abp\ClientApp.React\ClientApp.React.csproj", "{04484AA6-6485-4607-86FC-106A6385E6A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abp.ClientApp.React", "samples\abp\ClientApp.React\Abp.ClientApp.React.csproj", "{04484AA6-6485-4607-86FC-106A6385E6A4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientApp.Angular", "samples\abp\ClientApp.Angular\ClientApp.Angular.csproj", "{0008F283-56A2-4EC5-AC72-A11F3C89BF65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abp.ClientApp.Angular", "samples\abp\ClientApp.Angular\Abp.ClientApp.Angular.csproj", "{0008F283-56A2-4EC5-AC72-A11F3C89BF65}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbpHost.Web", "samples\abp\AbpHost.Web\AbpHost.Web.csproj", "{628FCC1B-CE70-4B0C-AF59-B36A3181186D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abp.Host.Web", "samples\abp\AbpHost.Web\Abp.Host.Web.csproj", "{628FCC1B-CE70-4B0C-AF59-B36A3181186D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YesSpa.Abp", "YesSpa.Abp\YesSpa.Abp.csproj", "{19112ECC-5EC2-46ED-8911-ED2E91C69B31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YesSpa.AbpModule.Targets", "YesSpa.AbpModule.Targets\YesSpa.AbpModule.Targets.csproj", "{DFD5BD89-5DF0-4C7E-BE81-1E2DD958D954}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YesSpa.AbpModule.Targets", "YesSpa.AbpModule.Targets\YesSpa.AbpModule.Targets.csproj", "{DFD5BD89-5DF0-4C7E-BE81-1E2DD958D954}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aspnetcore", "aspnetcore", "{071C0803-DAA2-479F-873A-3AA6BA81C633}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore.Host.Web", "samples\aspnetcore\AspNetCoreHost.Web\AspNetCore.Host.Web.csproj", "{0A37642F-123C-49B7-B3A4-8C54788CE8AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore.ClientApp.Angular", "samples\aspnetcore\AspNetCore.ClientApp.Angular\AspNetCore.ClientApp.Angular.csproj", "{330BC483-F212-4AC9-934F-59B34F609F8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore.ClientApp.React", "samples\aspnetcore\AspNetCore.ClientApp.React\AspNetCore.ClientApp.React.csproj", "{CCBB93D0-A598-44A0-B6B4-7ED1FAA56741}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +53,18 @@ Global
 		{DFD5BD89-5DF0-4C7E-BE81-1E2DD958D954}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFD5BD89-5DF0-4C7E-BE81-1E2DD958D954}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFD5BD89-5DF0-4C7E-BE81-1E2DD958D954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A37642F-123C-49B7-B3A4-8C54788CE8AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A37642F-123C-49B7-B3A4-8C54788CE8AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A37642F-123C-49B7-B3A4-8C54788CE8AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A37642F-123C-49B7-B3A4-8C54788CE8AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{330BC483-F212-4AC9-934F-59B34F609F8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{330BC483-F212-4AC9-934F-59B34F609F8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{330BC483-F212-4AC9-934F-59B34F609F8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{330BC483-F212-4AC9-934F-59B34F609F8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCBB93D0-A598-44A0-B6B4-7ED1FAA56741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCBB93D0-A598-44A0-B6B4-7ED1FAA56741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCBB93D0-A598-44A0-B6B4-7ED1FAA56741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCBB93D0-A598-44A0-B6B4-7ED1FAA56741}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +74,10 @@ Global
 		{04484AA6-6485-4607-86FC-106A6385E6A4} = {F001E185-ED7E-4607-90C3-334F8DED5654}
 		{0008F283-56A2-4EC5-AC72-A11F3C89BF65} = {F001E185-ED7E-4607-90C3-334F8DED5654}
 		{628FCC1B-CE70-4B0C-AF59-B36A3181186D} = {F001E185-ED7E-4607-90C3-334F8DED5654}
+		{071C0803-DAA2-479F-873A-3AA6BA81C633} = {4C74F8C2-4D48-4334-82DD-330EDC06C658}
+		{0A37642F-123C-49B7-B3A4-8C54788CE8AF} = {071C0803-DAA2-479F-873A-3AA6BA81C633}
+		{330BC483-F212-4AC9-934F-59B34F609F8B} = {071C0803-DAA2-479F-873A-3AA6BA81C633}
+		{CCBB93D0-A598-44A0-B6B4-7ED1FAA56741} = {071C0803-DAA2-479F-873A-3AA6BA81C633}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5F66EBCF-AD86-4814-8A23-A0EB134651EE}
