@@ -17,7 +17,7 @@ namespace YesSpa.Abp
     public static void ConfigureSpa(this IAbpStartupConfiguration configuration, string rootPath, string resourceNamespace, Assembly assembly)
     {
       // Provide app configuration to YesSpa services
-      var spaConfiguration = configuration.Get<IYesSpaAbpConfiguration>();
+      var spaConfiguration = configuration.Get<IYesSpaConfiguration>();
       spaConfiguration.AddSpa(rootPath);
 
       // Add embedded resource early to let Abp initialize embedded source

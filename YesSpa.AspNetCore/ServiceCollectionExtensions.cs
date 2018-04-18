@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using YesSpa.Common;
 
-namespace YesSpa.Abp
+namespace YesSpa.AspNetCore
 {
   public static class ServiceCollectionExtensions
   {

@@ -8,7 +8,7 @@ namespace YesSpa.Abp
 {
   internal class SpaMiddleware
   {
-    public static void Attach(IYesSpaBuilder spaBuilder, StaticFileOptions staticFileOptions, IYesSpaAbpConfiguration spaConfiguration)
+    public static void Attach(IYesSpaBuilder spaBuilder, StaticFileOptions staticFileOptions, IYesSpaConfiguration spaConfiguration)
     {
       if(spaBuilder == null)
         throw new ArgumentNullException(nameof(spaBuilder));

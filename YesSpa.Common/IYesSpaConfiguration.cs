@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace YesSpa.Common
 {
-  public interface IYesSpaAbpConfiguration
+  public interface IYesSpaConfiguration
   {
     /// <summary>
     /// Check SpaSettings for more info on parameters

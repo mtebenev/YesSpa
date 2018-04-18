@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace YesSpa.Abp
+namespace YesSpa.Common
 {
-  internal class YesSpaAbpConfiguration : IYesSpaAbpConfiguration
+  public class YesSpaConfiguration : IYesSpaConfiguration
   {
     private readonly List<SpaSettings> _spaSettings;
 
-    public YesSpaAbpConfiguration()
+    public YesSpaConfiguration()
     {
       _spaSettings = new List<SpaSettings>();
     }

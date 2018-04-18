@@ -1,9 +1,9 @@
 using System;
 using Microsoft.AspNetCore.Builder;
 
-namespace YesSpa.Abp
+namespace YesSpa.Common
 {
-  internal class YesSpaBuilder : IYesSpaBuilder
+  public class YesSpaBuilder : IYesSpaBuilder
   {
     public IApplicationBuilder ApplicationBuilder { get; }
 

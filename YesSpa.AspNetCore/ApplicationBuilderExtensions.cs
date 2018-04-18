@@ -1,19 +1,17 @@
 using System;
-using Abp.AspNetCore.EmbeddedResources;
-using Abp.Dependency;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using YesSpa.Common;
 
-namespace YesSpa.Abp
+namespace YesSpa.AspNetCore
 {
   public static class ApplicationBuilderExtensions
   {
     /// <summary>
     /// Use in Startup.Confiigure() to enable SPA routing. Use at the end of middleware chain.
     /// </summary>
-    public static void UseAbpSpa(this IApplicationBuilder applicationBuilder, Action<IYesSpaBuilder> configuration)
+    public static void UseSpa(this IApplicationBuilder applicationBuilder, Action<IYesSpaBuilder> configuration)
     {
       if(configuration == null)
         throw new ArgumentNullException(nameof(configuration));
@@ -27,8 +25,7 @@ namespace YesSpa.Abp
       // Attach middleware
       var staticFileOptions = new StaticFileOptions
       {
-        FileProvider = new EmbeddedResourceFileProvider(
-          applicationBuilder.ApplicationServices.GetRequiredService<IIocResolver>())
+        FileProvider = new EmbeddedFileProviderEx(null)
       };
 
       var spaConfiguration = applicationBuilder.ApplicationServices.GetRequiredService<IYesSpaConfiguration>();
@@ -38,9 +35,9 @@ namespace YesSpa.Abp
     /// <summary>
     /// Shorthand for using a default configuration
     /// </summary>
-    public static void UseAbpSpa(this IApplicationBuilder applicationBuilder)
+    public static void UseSpa(this IApplicationBuilder applicationBuilder)
     {
-      applicationBuilder.UseAbpSpa(builder => { });
+      applicationBuilder.UseSpa(builder => { });
     }
   }
 }

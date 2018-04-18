@@ -12,6 +12,7 @@ namespace YesSpa.Samples.AspNetCore.Host.Web
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddMvc();
+      services.AddYesSpa();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
