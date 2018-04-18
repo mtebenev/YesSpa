@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace YesSpa.Abp
+namespace YesSpa.Common
 {
-  internal interface IYesSpaAbpConfiguration
+  public interface IYesSpaAbpConfiguration
   {
     /// <summary>
     /// Check SpaSettings for more info on parameters

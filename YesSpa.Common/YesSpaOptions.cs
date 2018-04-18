@@ -1,4 +1,4 @@
-namespace YesSpa.Abp
+namespace YesSpa.Common
 {
   public class YesSpaOptions
   {
@@ -9,7 +9,7 @@ namespace YesSpa.Abp
     /// <summary>
     /// Use to copy settings from another instance
     /// </summary>
-    internal YesSpaOptions(YesSpaOptions copyFromOptions)
+    public YesSpaOptions(YesSpaOptions copyFromOptions)
     {
     }
   }

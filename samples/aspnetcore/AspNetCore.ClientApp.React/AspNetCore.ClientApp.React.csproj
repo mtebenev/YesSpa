@@ -2,8 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>YesSpa.Samples.AspNetCore.ClientApp.React</RootNamespace>
   </PropertyGroup>
 
   <!-- Necessary as we reference the Project and not the Package -->
   <Import Project="..\..\..\YesSpa.AbpModule.Targets\YesSpa.AbpModule.Targets.props" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\YesSpa.Client.Targets\YesSpa.Client.Targets.csproj" />
+  </ItemGroup>
 </Project>

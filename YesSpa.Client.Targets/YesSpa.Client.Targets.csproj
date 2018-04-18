@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <!-- Add the YesSpa.AbpModule.Targets.props file in the package -->
+  <ItemGroup>
+    <None Include="YesSpa.Client.Targets.props" Pack="true">
+      <PackagePath>build\$(TargetFramework)\YesSpa.Client.Targets.props</PackagePath>
+    </None>
+  </ItemGroup>
+</Project>

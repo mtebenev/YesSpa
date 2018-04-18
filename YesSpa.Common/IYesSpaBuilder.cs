@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 
-namespace YesSpa.Abp
+namespace YesSpa.Common
 {
   /// <summary>
   /// Configure SPA options using the interface

@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Http;
 
-namespace YesSpa.Abp
+namespace YesSpa.Common
 {
   /// <summary>
   /// Information necessary to rewrite URL to default SPA page (index.html)
   /// </summary>
-  internal class DefaultPageRewrite
+  public class DefaultPageRewrite
   {
     public DefaultPageRewrite(string urlPath, string defaultPagePath)
     {

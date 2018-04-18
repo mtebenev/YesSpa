@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClientApp.Angular\Abp.ClientApp.Angular.csproj" />
-    <ProjectReference Include="..\ClientApp.React\Abp.ClientApp.React.csproj" />
+    <ProjectReference Include="..\Abp.ClientApp.Angular\Abp.ClientApp.Angular.csproj" />
+    <ProjectReference Include="..\Abp.ClientApp.React\Abp.ClientApp.React.csproj" />
   </ItemGroup>
 
 </Project>

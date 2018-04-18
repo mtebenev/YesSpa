@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using YesSpa.Common;
 
 namespace YesSpa.Abp
 {

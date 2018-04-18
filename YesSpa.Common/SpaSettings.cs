@@ -1,9 +1,9 @@
-namespace YesSpa.Abp
+namespace YesSpa.Common
 {
   /// <summary>
   /// Settings for a single hosted SPA
   /// </summary>
-  internal class SpaSettings
+  public class SpaSettings
   {
     public SpaSettings(string rootUrlPath)
     {
