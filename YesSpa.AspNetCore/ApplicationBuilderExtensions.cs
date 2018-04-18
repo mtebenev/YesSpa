@@ -19,25 +19,20 @@ namespace YesSpa.AspNetCore
       // Build options
       var optionsProvider = applicationBuilder.ApplicationServices.GetService<IOptions<YesSpaOptions>>();
       var options = new YesSpaOptions(optionsProvider.Value);
-      var spaBuilder = new YesSpaBuilder(applicationBuilder, options);
+      var spaBuilder = new YesSpaBuilderAspNetCore(applicationBuilder, options);
       configuration.Invoke(spaBuilder);
 
       // Attach middleware
       var staticFileOptions = new StaticFileOptions
       {
-        FileProvider = new EmbeddedFileProviderEx(null)
+        FileProvider = new EmbeddedFileProviderEx(null, spaBuilder.SpaModules)
       };
 
       var spaConfiguration = applicationBuilder.ApplicationServices.GetRequiredService<IYesSpaConfiguration>();
-      SpaMiddleware.Attach(spaBuilder, staticFileOptions, spaConfiguration);
-    }
 
-    /// <summary>
-    /// Shorthand for using a default configuration
-    /// </summary>
-    public static void UseSpa(this IApplicationBuilder applicationBuilder)
-    {
-      applicationBuilder.UseSpa(builder => { });
+      spaConfiguration.AddSpa("/react/");
+
+      SpaMiddleware.Attach(spaBuilder, staticFileOptions, spaConfiguration);
     }
   }
 }

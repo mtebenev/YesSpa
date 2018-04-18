@@ -1,5 +1,8 @@
 namespace YesSpa.Common
 {
+  /// <summary>
+  /// TODO MTE: consider removing the options
+  /// </summary>
   public class YesSpaOptions
   {
     public YesSpaOptions()

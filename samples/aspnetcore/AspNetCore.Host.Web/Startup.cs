@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using YesSpa.AspNetCore;
+using YesSpa.Samples.AspNetCore.ClientApp.React;
 
 namespace YesSpa.Samples.AspNetCore.Host.Web
 {
@@ -22,7 +23,10 @@ namespace YesSpa.Samples.AspNetCore.Host.Web
         app.UseDeveloperExceptionPage();
 
       app.UseMvc();
-      app.UseSpa();
+      app.UseSpa(builder =>
+      {
+        builder.AddSpa(typeof(ClientAppModuleReact).Assembly);
+      });
     }
   }
 }
