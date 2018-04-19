@@ -22,6 +22,6 @@ namespace YesSpa.Common
     /// <summary>
     /// Use to add another SPA configuration
     /// </summary>
-    void AddSpa(Assembly assembly);
+    void AddSpa(Assembly assembly, string rootUrlPath, string embeddedUrlRoot);
   }
 }

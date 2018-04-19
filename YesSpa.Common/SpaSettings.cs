@@ -5,9 +5,10 @@ namespace YesSpa.Common
   /// </summary>
   public class SpaSettings
   {
-    public SpaSettings(string rootUrlPath)
+    public SpaSettings(string rootUrlPath, string embeddedUrlRoot)
     {
       RootUrlPath = rootUrlPath;
+      EmbeddedUrlRoot = embeddedUrlRoot;
     }
 
     /// <summary>
@@ -17,5 +18,11 @@ namespace YesSpa.Common
     /// Trailing and forwarding slashes are ignored
     /// </summary>
     public string RootUrlPath { get; }
+
+    /// <summary>
+    /// Root of embedded resource URL for SPA. This is module system-specific
+    /// TODO MTE: revisit, do we need this? Provide requirements per each modular system
+    /// </summary>
+    public string EmbeddedUrlRoot { get; }
   }
 }

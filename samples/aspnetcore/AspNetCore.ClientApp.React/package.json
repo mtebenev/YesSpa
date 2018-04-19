@@ -2,7 +2,7 @@
   "name": "aspnetcore-clientapp-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/.Modules/AspNetCore.ClientApp.React.build",
+  "homepage": "/.Modules/AspNetCore.ClientApp.React/build",
   "dependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2",

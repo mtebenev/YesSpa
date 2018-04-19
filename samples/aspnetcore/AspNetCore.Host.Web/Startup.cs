@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using YesSpa.AspNetCore;
+using YesSpa.Samples.AspNetCore.ClientApp.Angular;
 using YesSpa.Samples.AspNetCore.ClientApp.React;
 
 namespace YesSpa.Samples.AspNetCore.Host.Web
@@ -25,7 +26,8 @@ namespace YesSpa.Samples.AspNetCore.Host.Web
       app.UseMvc();
       app.UseSpa(builder =>
       {
-        builder.AddSpa(typeof(ClientAppModuleReact).Assembly);
+        builder.AddSpa(typeof(ClientAppModuleReact).Assembly, "/react/", "/.Modules/AspNetCore.ClientApp.React/build");
+        builder.AddSpa(typeof(ClientAppModuleAngular).Assembly, "/angular/", "/.Modules/AspNetCore.ClientApp.Angular/dist");
       });
     }
   }

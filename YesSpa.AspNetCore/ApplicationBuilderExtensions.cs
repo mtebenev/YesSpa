@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -25,12 +26,15 @@ namespace YesSpa.AspNetCore
       // Attach middleware
       var staticFileOptions = new StaticFileOptions
       {
-        FileProvider = new EmbeddedFileProviderEx(null, spaBuilder.SpaModules)
+        FileProvider = new EmbeddedFileProviderEx(null, spaBuilder.SpaModules.ToList())
       };
 
       var spaConfiguration = applicationBuilder.ApplicationServices.GetRequiredService<IYesSpaConfiguration>();
 
-      spaConfiguration.AddSpa("/react/");
+      foreach(SpaSettings settings in spaBuilder.SpaSettings)
+      {
+        spaConfiguration.AddSpa(settings.RootUrlPath, settings.EmbeddedUrlRoot);
+      }
 
       SpaMiddleware.Attach(spaBuilder, staticFileOptions, spaConfiguration);
     }
