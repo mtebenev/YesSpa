@@ -10,7 +10,7 @@ namespace YesSpa.Samples.Abp.ClientApp.React
     {
       string rootPath = "/react/";
       var assembly = Assembly.GetExecutingAssembly();
-      var resourceNamespace = "YesSpa.Samples.Abp.ClientApp.React.client_app.build";
+      var resourceNamespace = "YesSpa.Samples.Abp.ClientApp.React.build";
       Configuration.ConfigureSpa(rootPath, resourceNamespace, assembly);
     }
   }

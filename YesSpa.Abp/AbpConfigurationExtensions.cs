@@ -11,17 +11,17 @@ namespace YesSpa.Abp
     /// Call on module startup to configure embedded SPA
     /// </summary>
     /// <param name="configuration"></param>
-    /// <param name="rootPath"></param>
+    /// <param name="rootUrlPath"></param>
     /// <param name="resourceNamespace">Check https://www.aspnetboilerplate.com/Pages/Documents/Embedded-Resource-Files for details</param>
     /// <param name="assembly"></param>
-    public static void ConfigureSpa(this IAbpStartupConfiguration configuration, string rootPath, string resourceNamespace, Assembly assembly)
+    public static void ConfigureSpa(this IAbpStartupConfiguration configuration, string rootUrlPath, string resourceNamespace, Assembly assembly)
     {
       // Provide app configuration to YesSpa services
       var spaConfiguration = configuration.Get<IYesSpaConfiguration>();
-      spaConfiguration.AddSpa(rootPath);
+      spaConfiguration.AddSpa(rootUrlPath, resourceNamespace);
 
       // Add embedded resource early to let Abp initialize embedded source
-      var resourceSet = new EmbeddedResourceSet(rootPath, assembly, resourceNamespace);
+      var resourceSet = new EmbeddedResourceSet(rootUrlPath, assembly, resourceNamespace);
       configuration.EmbeddedResources.Sources.Add(resourceSet);
     }
   }

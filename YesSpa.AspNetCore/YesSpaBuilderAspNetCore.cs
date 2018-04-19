@@ -6,7 +6,7 @@ using YesSpa.Common;
 
 namespace YesSpa.AspNetCore
 {
-  public class YesSpaBuilderAspNetCore : IYesSpaBuilder
+  internal class YesSpaBuilderAspNetCore : IYesSpaBuilder
   {
     private readonly List<ISpaModule> _spaModules;
     private readonly List<SpaSettings> _spaSettings;
