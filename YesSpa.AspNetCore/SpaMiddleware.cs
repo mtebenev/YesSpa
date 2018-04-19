@@ -1,9 +1,10 @@
 using System;
-using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using YesSpa.Common;
 using YesSpa.Common.Configuration;
+using YesSpa.Common.StubPage;
 
 namespace YesSpa.AspNetCore
 {
@@ -15,16 +16,16 @@ namespace YesSpa.AspNetCore
         throw new ArgumentNullException(nameof(spaBuilder));
 
       var app = spaBuilder.ApplicationBuilder;
-      var defaultPageRewrites = spaConfiguration.SpaDefaultPageRewrites;
+      var hostingEnvironment = spaBuilder.ApplicationBuilder.ApplicationServices.GetService<IHostingEnvironment>();
+      var stubPageWriter = new StubPageWriter();
+      var defaultPageWriter = new DefaultPageWriter(spaConfiguration, stubPageWriter, hostingEnvironment.IsDevelopment());
 
       // Rewrite requests to the default pages
-      app.Use((context, next) =>
+      app.Use(async (context, next) =>
       {
-        var pageRewrite = defaultPageRewrites.FirstOrDefault(r => r.IsMatching(context.Request.Path));
-        if(pageRewrite != null)
-          context.Request.Path = pageRewrite.DefaultPagePath;
-
-        return next();
+        var shouldStop = await defaultPageWriter.WriteDefaultPage(context);
+        if(!shouldStop)
+          await next();
       });
 
       // Serve it as a static file
