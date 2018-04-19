@@ -1,4 +1,4 @@
-namespace YesSpa.Common
+namespace YesSpa.Common.Configuration
 {
   /// <summary>
   /// TODO MTE: consider removing the options

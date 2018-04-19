@@ -1,4 +1,4 @@
-namespace YesSpa.Common
+namespace YesSpa.Common.Configuration
 {
   /// <summary>
   /// Settings for a single hosted SPA

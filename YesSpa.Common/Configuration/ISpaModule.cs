@@ -1,6 +1,6 @@
 using Microsoft.Extensions.FileProviders;
 
-namespace YesSpa.Common
+namespace YesSpa.Common.Configuration
 {
   /// <summary>
   /// Abstract interface for accessing embedded files.

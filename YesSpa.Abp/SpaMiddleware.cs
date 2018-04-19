@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using YesSpa.Common;
+using YesSpa.Common.Configuration;
 
 namespace YesSpa.Abp
 {

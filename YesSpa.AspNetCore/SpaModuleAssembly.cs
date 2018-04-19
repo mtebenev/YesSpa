@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.FileProviders.Embedded;
-using YesSpa.Common;
+using YesSpa.Common.Configuration;
 
 namespace YesSpa.AspNetCore
 {

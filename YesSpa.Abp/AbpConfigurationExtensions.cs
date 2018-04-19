@@ -1,7 +1,7 @@
 using System.Reflection;
 using Abp.Configuration.Startup;
 using Abp.Resources.Embedded;
-using YesSpa.Common;
+using YesSpa.Common.Configuration;
 
 namespace YesSpa.Abp
 {

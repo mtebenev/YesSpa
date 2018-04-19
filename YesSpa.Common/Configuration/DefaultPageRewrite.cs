@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace YesSpa.Common
+namespace YesSpa.Common.Configuration
 {
   /// <summary>
   /// Information necessary to rewrite URL to default SPA page (index.html)

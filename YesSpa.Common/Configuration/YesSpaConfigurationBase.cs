@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace YesSpa.Common
+namespace YesSpa.Common.Configuration
 {
   public abstract class YesSpaConfigurationBase : IYesSpaConfiguration
   {

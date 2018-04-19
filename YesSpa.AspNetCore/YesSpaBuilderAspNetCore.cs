@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using YesSpa.Common;
+using YesSpa.Common.Configuration;
 
 namespace YesSpa.AspNetCore
 {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace YesSpa.Common
+namespace YesSpa.Common.Configuration
 {
   public interface IYesSpaConfiguration
   {

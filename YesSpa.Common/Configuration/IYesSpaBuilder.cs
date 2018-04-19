@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 
-namespace YesSpa.Common
+namespace YesSpa.Common.Configuration
 {
   /// <summary>
   /// Configure SPA options using the interface

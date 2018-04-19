@@ -1,4 +1,4 @@
-using YesSpa.Common;
+using YesSpa.Common.Configuration;
 
 namespace YesSpa.AspNetCore
 {
