@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>YesSpa.Samples.AspNetCore.ClientApp.Angular</RootNamespace>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <!-- Necessary as we reference the Project and not the Package -->
