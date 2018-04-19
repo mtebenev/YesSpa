@@ -11,7 +11,7 @@ namespace YesSpa.AspNetCore
     /// </summary>
     public static void AddYesSpa(this IServiceCollection services)
     {
-      services.AddSingleton<IYesSpaConfiguration, YesSpaConfiguration>();
+      services.AddSingleton<IYesSpaConfiguration, YesSpaConfigurationAspNetCore>();
     }
   }
 }

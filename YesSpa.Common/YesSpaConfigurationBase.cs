@@ -3,18 +3,18 @@ using System.Linq;
 
 namespace YesSpa.Common
 {
-  public class YesSpaConfiguration : IYesSpaConfiguration
+  public abstract class YesSpaConfigurationBase : IYesSpaConfiguration
   {
     private readonly List<SpaSettings> _spaSettings;
 
-    public YesSpaConfiguration()
+    protected YesSpaConfigurationBase()
     {
       _spaSettings = new List<SpaSettings>();
     }
 
-    public void AddSpa(string rootPath)
+    public void AddSpa(string rootUrlPath, string embeddedUrlRoot)
     {
-      var settings = new SpaSettings(rootPath);
+      var settings = new SpaSettings(rootUrlPath, embeddedUrlRoot);
       _spaSettings.Add(settings);
     }
 
@@ -25,15 +25,15 @@ namespace YesSpa.Common
       get
       {
         var result = _spaSettings
-          .Select(s =>
-          {
-            // Use convention (angular-cli and create-react-app use index.html
-            var defaultPagePath = $"/{s.RootUrlPath.Trim('/')}/index.html";
-            return new DefaultPageRewrite(s.RootUrlPath, defaultPagePath);
-          })
+          .Select(GetDefaultPageRewrite)
           .ToList();
         return result;
       }
     }
+
+    /// <summary>
+    /// Concrete implementation depends on modular system
+    /// </summary>
+    protected abstract DefaultPageRewrite GetDefaultPageRewrite(SpaSettings spaSettings);
   }
 }
