@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Http;
 
 namespace YesSpa.Common.Configuration
@@ -21,7 +22,11 @@ namespace YesSpa.Common.Configuration
     /// </summary>
     public bool IsMatching(PathString requestPath)
     {
-      var result = UrlPath.EndsWith(requestPath.Value.Trim('/'));
+      var trimmedRequestPath = requestPath.Value.Trim('/');
+      var result = String.IsNullOrEmpty(trimmedRequestPath)
+        ? String.IsNullOrEmpty(UrlPath)
+        : UrlPath.EndsWith(trimmedRequestPath);
+
       return result;
     }
   }
