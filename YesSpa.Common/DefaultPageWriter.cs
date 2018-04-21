@@ -11,11 +11,13 @@ namespace YesSpa.Common
   {
     private readonly IReadOnlyList<DefaultPageRewrite> _defaultPageRewrites;
     private readonly bool _isDevelopmentEnvironment;
+    private readonly bool _useStubPage;
     private readonly IStubPageWriter _stubPageWriter;
 
-    public DefaultPageWriter(IYesSpaConfiguration spaConfiguration, IStubPageWriter stubPageWriter, bool isDevelopmentEnvironment)
+    public DefaultPageWriter(IYesSpaConfiguration spaConfiguration, IStubPageWriter stubPageWriter, bool isDevelopmentEnvironment, bool useStubPage)
     {
       _isDevelopmentEnvironment = isDevelopmentEnvironment;
+      _useStubPage = useStubPage;
       _defaultPageRewrites = spaConfiguration.SpaDefaultPageRewrites;
       _stubPageWriter = stubPageWriter;
     }
@@ -30,12 +32,14 @@ namespace YesSpa.Common
       if(pageRewrite != null)
       {
         // Rewrite URL in production, stub page in development environment
-        if(!_isDevelopmentEnvironment)
-          context.Request.Path = pageRewrite.DefaultPagePath; // Rewrite url, don't stop processing
-        else
+        if(_useStubPage && _isDevelopmentEnvironment)
         {
           await _stubPageWriter.WriteAsync(context);
           result = true;
+        }
+        else
+        {
+          context.Request.Path = pageRewrite.DefaultPagePath; // Rewrite url, don't stop processing
         }
       }
 

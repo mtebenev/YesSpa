@@ -2,19 +2,10 @@ using AutoFixture;
 using Microsoft.AspNetCore.Http;
 using Xunit;
 using YesSpa.Common.Configuration;
+using YesSpa.Test.Testing;
 
 namespace YesSpa.Test.Common.Configuration
 {
-  public class DefaultPageRewriteCustomization : ICustomization
-  {
-    public string RootUrlPath { get; set; }
-    public void Customize(IFixture fixture)
-    {
-      fixture
-        .Customize<DefaultPageRewrite>(c => c.FromFactory(() => new DefaultPageRewrite(RootUrlPath, fixture.Create<string>())));
-    }
-  }
-
   public class DefaultPageRewriteTest
   {
     /// <summary>
@@ -24,7 +15,8 @@ namespace YesSpa.Test.Common.Configuration
     public void Should_Work_With_Non_Root_Paths()
     {
       var fixture = new Fixture()
-        .Customize(new DefaultPageRewriteCustomization {RootUrlPath = "/react/"});
+        .Customize(new DefaultPageRewriteCustomization {RootUrlPath = "/react/"})
+        .Customize(new DefaultPageWriterCustomization());
 
       var sut = fixture.Create<DefaultPageRewrite>();
 
@@ -49,7 +41,5 @@ namespace YesSpa.Test.Common.Configuration
       Assert.True(sut.IsMatching(new PathString("/")));
       Assert.False(sut.IsMatching(new PathString("/another/path")));
     }
-
-
   }
 }

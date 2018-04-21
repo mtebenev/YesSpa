@@ -16,9 +16,10 @@ namespace YesSpa.Abp
         throw new ArgumentNullException(nameof(spaBuilder));
 
       var app = spaBuilder.ApplicationBuilder;
+      var options = spaBuilder.Options;
       var hostingEnvironment = spaBuilder.ApplicationBuilder.ApplicationServices.GetService<IHostingEnvironment>();
       var stubPageWriter = new StubPageWriter();
-      var defaultPageWriter = new DefaultPageWriter(spaConfiguration, stubPageWriter, hostingEnvironment.IsDevelopment());
+      var defaultPageWriter = new DefaultPageWriter(spaConfiguration, stubPageWriter, hostingEnvironment.IsDevelopment(), options.UseStubPage);
 
       // Rewrite requests to the default pages
       app.Use(async (context, next) =>
