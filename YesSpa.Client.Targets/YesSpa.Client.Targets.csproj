@@ -9,5 +9,8 @@
     <None Include="YesSpa.Client.Targets.props" Pack="true">
       <PackagePath>build\$(TargetFramework)\YesSpa.Client.Targets.props</PackagePath>
     </None>
+    <None Include="YesSpa.Client.Targets.targets" Pack="true">
+      <PackagePath>build\$(TargetFramework)\YesSpa.Client.Targets.targets</PackagePath>
+    </None>
   </ItemGroup>
 </Project>
