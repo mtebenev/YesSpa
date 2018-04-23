@@ -7,6 +7,7 @@ namespace YesSpa.Common.Configuration
   {
     public YesSpaOptions()
     {
+      UseStubPage = true;
     }
 
     /// <summary>

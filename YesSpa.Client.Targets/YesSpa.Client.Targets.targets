@@ -14,7 +14,7 @@
 
   <!-- Launches angular cli build -->
   <Target Name="BuildSpaAngular">
-    <Message Text="BUILDING ANGULAR" Importance="High"/>
+    <Message Text="Building angular SPA" Importance="High"/>
     <!-- Build command line -->
     <PropertyGroup>
       <SpaBuildCmdLine>build</SpaBuildCmdLine>
@@ -30,7 +30,15 @@
 
   <!-- Launches react build -->
   <Target Name="BuildSpaReact">
-    <Message Text="BUILDING ANGULAR" Importance="High"/>
+    <Message Text="Building react SPA" Importance="High"/>
+
+    <!-- Build command line -->
+    <PropertyGroup>
+      <SpaBuildCmdLine>build</SpaBuildCmdLine>
+    </PropertyGroup>
+
+    <Message Text="Angular-cli command: npx ng $(SpaBuildCmdLine)" Importance="High"/>
+    <Exec Command="npm run $(SpaBuildCmdLine)" />
   </Target>
 
   <Target Name="EmbedModuleAssets" AfterTargets="AfterResolveReferences"

@@ -5,6 +5,27 @@
 		},
 		{
 			"path": "testing\\YesSpa.Test"
+		},
+		{
+			"path": "samples\\aspnetcore\\AspNetCore.ClientApp.React"
+		},
+		{
+			"path": "samples\\aspnetcore\\AspNetCore.ClientApp.Angular"
+		},
+		{
+			"path": "samples\\abp\\Abp.ClientApp.Angular"
+		},
+		{
+			"path": "samples\\abp\\Abp.ClientApp.React"
+		},
+		{
+			"path": "YesSpa.Client.Targets"
+		},
+		{
+			"path": "samples\\aspnetcore\\AspNetCore.Host.Web"
+		},
+		{
+			"path": "YesSpa.AspNetCore"
 		}
 	],
 	"settings": {}

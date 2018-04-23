@@ -6,6 +6,11 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <!-- YesSpa build -->
+  <PropertyGroup Condition="$(EnvDevEmbedded) == 'true'">
+    <SpaBuildTools>react</SpaBuildTools>
+  </PropertyGroup>
+
   <!-- Necessary as we reference the Project and not the Package -->
   <Import Project="..\..\..\YesSpa.AbpModule.Targets\YesSpa.AbpModule.Targets.props" />
 

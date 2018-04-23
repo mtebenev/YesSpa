@@ -15,6 +15,7 @@ namespace YesSpa.Samples.AspNetCore.Host.Web
       WebHost.CreateDefaultBuilder(args)
         .ConfigureLogging(((hostingContext, logging) =>
         {
+          logging.AddConsole();
           logging.SetMinimumLevel(LogLevel.Debug);
         }))
         .UseStartup<Startup>()

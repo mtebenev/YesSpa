@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <!-- YesSpa build -->
-  <PropertyGroup>
+  <PropertyGroup Condition="$(EnvDevEmbedded) == 'true'">
+    <BuildSpa>true</BuildSpa>
     <SpaBuildTools>angular</SpaBuildTools>
     <AngularBaseHref>/angular/</AngularBaseHref>
     <AngularDeployUrl>/.Modules/AspNetCore.ClientApp.Angular/dist/</AngularDeployUrl>
-    <SpaEnvironment>/.Modules/AspNetCore.ClientApp.Angular/dist/</SpaEnvironment>
   </PropertyGroup>
 
   <!-- Necessary as we reference the Project and not the Package -->
