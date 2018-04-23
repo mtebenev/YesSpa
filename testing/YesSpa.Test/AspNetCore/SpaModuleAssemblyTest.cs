@@ -1,6 +1,7 @@
 using System.Reflection;
 using AutoFixture;
 using AutoFixture.AutoMoq;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 using YesSpa.AspNetCore;
@@ -23,7 +24,7 @@ namespace YesSpa.Test.AspNetCore
       mockAssembly.Setup(x => x.GetManifestResourceInfo(It.IsIn(expectedResourcePath))).Returns(new ManifestResourceInfo(null, "any", new ResourceLocation()));
       mockAssembly.Setup(x => x.Object).Returns<Assembly>(null);
 
-      var spaModule = new SpaModuleAssembly(assembly);
+      var spaModule = new SpaModuleAssembly(assembly, fixture.Create<ILogger>());
       var fileInfo = spaModule.GetFileInfo("build/index.html");
 
       Assert.Equal("index.html", fileInfo.Name);
@@ -44,7 +45,7 @@ namespace YesSpa.Test.AspNetCore
       mockAssembly.Setup(x => x.GetManifestResourceInfo(It.IsAny<string>())).Returns<ManifestResourceInfo>(null);
       mockAssembly.Setup(x => x.Object).Returns<Assembly>(null);
 
-      var spaModule = new SpaModuleAssembly(assembly);
+      var spaModule = new SpaModuleAssembly(assembly, fixture.Create<ILogger>());
       var fileInfo = spaModule.GetFileInfo("build/index.html");
 
       Assert.False(fileInfo.Exists);

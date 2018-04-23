@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using YesSpa.Common.Configuration;
 using YesSpa.Common.StubPage;
 
@@ -13,13 +15,20 @@ namespace YesSpa.Common
     private readonly bool _isDevelopmentEnvironment;
     private readonly bool _useStubPage;
     private readonly IStubPageWriter _stubPageWriter;
+    private readonly ILogger _logger;
 
-    public DefaultPageWriter(IYesSpaConfiguration spaConfiguration, IStubPageWriter stubPageWriter, bool isDevelopmentEnvironment, bool useStubPage)
+    private readonly Action<ILogger, string, bool, Exception> _logRequestMatch;
+
+    public DefaultPageWriter(IYesSpaConfiguration spaConfiguration, IStubPageWriter stubPageWriter, ILogger logger, bool isDevelopmentEnvironment, bool useStubPage)
     {
       _isDevelopmentEnvironment = isDevelopmentEnvironment;
       _useStubPage = useStubPage;
       _defaultPageRewrites = spaConfiguration.SpaDefaultPageRewrites;
       _stubPageWriter = stubPageWriter;
+      _logger = logger;
+
+
+      _logRequestMatch = LoggerMessage.Define<string, bool>(LogLevel.Debug, 1, "Matched request '{RequestPath}', result: {Result}");
     }
 
     /// <summary>
@@ -28,7 +37,9 @@ namespace YesSpa.Common
     public async Task<bool> WriteDefaultPage(HttpContext context)
     {
       var result = false;
+
       var pageRewrite = _defaultPageRewrites.FirstOrDefault(r => r.IsMatching(context.Request.Path));
+      _logRequestMatch(_logger, context.Request.Path.Value, pageRewrite != null, null);
       if(pageRewrite != null)
       {
         // Rewrite URL in production, stub page in development environment

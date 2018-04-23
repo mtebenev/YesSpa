@@ -2,8 +2,8 @@ using System;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using YesSpa.Common;
 using YesSpa.Common.Configuration;
 
 namespace YesSpa.AspNetCore
@@ -23,11 +23,12 @@ namespace YesSpa.AspNetCore
       var options = new YesSpaOptions(optionsProvider.Value);
       var spaBuilder = new YesSpaBuilderAspNetCore(applicationBuilder, options);
       configuration.Invoke(spaBuilder);
+      var loggerFactory = applicationBuilder.ApplicationServices.GetRequiredService<ILoggerFactory>();
 
       // Attach middleware
       var staticFileOptions = new StaticFileOptions
       {
-        FileProvider = new EmbeddedFileProviderEx(null, spaBuilder.SpaModules.ToList())
+        FileProvider = new EmbeddedFileProviderEx(null, spaBuilder.SpaModules.ToList(), loggerFactory)
       };
 
       var spaConfiguration = applicationBuilder.ApplicationServices.GetRequiredService<IYesSpaConfiguration>();
@@ -37,7 +38,7 @@ namespace YesSpa.AspNetCore
         spaConfiguration.AddSpa(settings.RootUrlPath, settings.EmbeddedUrlRoot);
       }
 
-      SpaMiddleware.Attach(spaBuilder, staticFileOptions, spaConfiguration);
+      SpaMiddlewareAspNetCore.Attach(spaBuilder, staticFileOptions, spaConfiguration);
     }
   }
 }

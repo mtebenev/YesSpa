@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "YesSpa.Common"
+		},
+		{
+			"path": "testing\\YesSpa.Test"
+		}
+	],
+	"settings": {}
+}

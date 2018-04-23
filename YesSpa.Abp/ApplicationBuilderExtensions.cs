@@ -4,7 +4,6 @@ using Abp.Dependency;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using YesSpa.Common;
 using YesSpa.Common.Configuration;
 
 namespace YesSpa.Abp
@@ -33,7 +32,7 @@ namespace YesSpa.Abp
       };
 
       var spaConfiguration = applicationBuilder.ApplicationServices.GetRequiredService<IYesSpaConfiguration>();
-      SpaMiddleware.Attach(spaBuilder, staticFileOptions, spaConfiguration);
+      SpaMiddlewareAbp.Attach(spaBuilder, staticFileOptions, spaConfiguration);
     }
 
     /// <summary>

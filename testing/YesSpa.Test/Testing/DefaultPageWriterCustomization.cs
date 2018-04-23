@@ -1,4 +1,5 @@
 using AutoFixture;
+using Microsoft.Extensions.Logging;
 using YesSpa.Common;
 using YesSpa.Common.Configuration;
 using YesSpa.Common.StubPage;
@@ -22,6 +23,7 @@ namespace YesSpa.Test.Testing
           () => new DefaultPageWriter(
             fixture.Create<IYesSpaConfiguration>(),
             fixture.Create<IStubPageWriter>(),
+            fixture.Create<ILogger>(),
             IsDevelopmentEnvironment,
             UseStubPage)));
     }

@@ -2,13 +2,14 @@ using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using YesSpa.Common;
 using YesSpa.Common.Configuration;
 using YesSpa.Common.StubPage;
 
-namespace YesSpa.AspNetCore
+namespace YesSpa.Abp
 {
-  internal class SpaMiddleware
+  internal class SpaMiddlewareAbp
   {
     public static void Attach(IYesSpaBuilder spaBuilder, StaticFileOptions staticFileOptions, IYesSpaConfiguration spaConfiguration)
     {
@@ -18,8 +19,11 @@ namespace YesSpa.AspNetCore
       var app = spaBuilder.ApplicationBuilder;
       var options = spaBuilder.Options;
       var hostingEnvironment = spaBuilder.ApplicationBuilder.ApplicationServices.GetService<IHostingEnvironment>();
-      var stubPageWriter = new StubPageWriter();
-      var defaultPageWriter = new DefaultPageWriter(spaConfiguration, stubPageWriter, hostingEnvironment.IsDevelopment(), options.UseStubPage);
+      var loggerFactory = spaBuilder.ApplicationBuilder.ApplicationServices.GetRequiredService<ILoggerFactory>();
+      var logger = loggerFactory.CreateLogger<SpaMiddlewareAbp>();
+
+      var stubPageWriter = new StubPageWriter(logger);
+      var defaultPageWriter = new DefaultPageWriter(spaConfiguration, stubPageWriter, logger, hostingEnvironment.IsDevelopment(), options.UseStubPage);
 
       // Rewrite requests to the default pages
       app.Use(async (context, next) =>

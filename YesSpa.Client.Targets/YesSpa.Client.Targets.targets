@@ -1,6 +1,41 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Target Name="EmbeddModuleAssets" AfterTargets="AfterResolveReferences">
+  <Target Name="BuildSpa" BeforeTargets="EmbedModuleAssets"
+          Condition="'$(BuildSpa)'=='true'">
+    <Message Text="YesSpa: building SPA: $(MSBuildProjectName)" Importance="High"/>
+    <Error Condition="$(SpaBuildTools) != 'angular' And $(SpaBuildTools) != 'react'"
+           Text="YesSpa ($(MSBuildProjectName)): property 'SpaBuildTools' is not set or has invalid value, aborting." />
+
+    <CallTarget Condition="$(SpaBuildTools) == 'angular'"
+                Targets="BuildSpaAngular"/>
+    <CallTarget Condition="$(SpaBuildTools) == 'react'"
+                Targets="BuildSpaReact"/>
+  </Target>
+
+  <!-- Launches angular cli build -->
+  <Target Name="BuildSpaAngular">
+    <Message Text="BUILDING ANGULAR" Importance="High"/>
+    <!-- Build command line -->
+    <PropertyGroup>
+      <SpaBuildCmdLine>build</SpaBuildCmdLine>
+      <SpaBuildCmdLine Condition="'$(AngularBaseHref)' != ''">$(SpaBuildCmdLine) --base-href "$(AngularBaseHref)"</SpaBuildCmdLine>
+      <SpaBuildCmdLine Condition="'$(AngularDeployUrl)' != ''">$(SpaBuildCmdLine) --deploy-url "$(AngularDeployUrl)"</SpaBuildCmdLine>
+      <SpaBuildCmdLine Condition="'$(SpaEnvironment)' != ''">$(SpaBuildCmdLine) --environment "$(SpaEnvironment)"</SpaBuildCmdLine>
+    </PropertyGroup>
+
+    <Message Text="Angular-cli command: npx ng $(SpaBuildCmdLine)" Importance="High"/>
+    <Exec Command="npx ng $(SpaBuildCmdLine)" />
+
+  </Target>
+
+  <!-- Launches react build -->
+  <Target Name="BuildSpaReact">
+    <Message Text="BUILDING ANGULAR" Importance="High"/>
+  </Target>
+
+  <Target Name="EmbedModuleAssets" AfterTargets="AfterResolveReferences"
+          Condition="'$(BuildSpa)'=='true'">
+    <Message Text="YesSpa: embedding SPA: $(MSBuildProjectName)" Importance="High"/>
 
     <RemoveDuplicates Inputs="@(EmbeddedResource)">
       <Output TaskParameter="Filtered" ItemName="ModuleAssetFiles"/>

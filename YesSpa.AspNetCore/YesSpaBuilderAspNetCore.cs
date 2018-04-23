@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
-using YesSpa.Common;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using YesSpa.Common.Configuration;
 
 namespace YesSpa.AspNetCore
@@ -11,6 +12,7 @@ namespace YesSpa.AspNetCore
   {
     private readonly List<ISpaModule> _spaModules;
     private readonly List<SpaSettings> _spaSettings;
+    private readonly ILogger<SpaModuleAssembly> _logger;
 
     public YesSpaBuilderAspNetCore(IApplicationBuilder applicationBuilder, YesSpaOptions options)
     {
@@ -19,6 +21,8 @@ namespace YesSpa.AspNetCore
 
       ApplicationBuilder = applicationBuilder ?? throw new ArgumentNullException(nameof(applicationBuilder));
       Options = options ?? throw new ArgumentNullException(nameof(options));
+      var loggerFactory = applicationBuilder.ApplicationServices.GetRequiredService<ILoggerFactory>();
+      _logger = loggerFactory.CreateLogger<SpaModuleAssembly>();
     }
 
     /// <summary>
@@ -37,7 +41,7 @@ namespace YesSpa.AspNetCore
     public void AddSpa(Assembly assembly, string rootUrlPath, string embeddedUrlRoot)
     {
       var assemblyWrapper = new AssemblyWrapper(assembly);
-      var spaModule = new SpaModuleAssembly(assemblyWrapper);
+      var spaModule = new SpaModuleAssembly(assemblyWrapper, _logger);
       _spaModules.Add(spaModule);
       _spaSettings.Add(new SpaSettings(rootUrlPath, embeddedUrlRoot));
     }
