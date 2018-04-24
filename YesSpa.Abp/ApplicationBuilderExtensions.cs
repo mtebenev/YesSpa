@@ -13,7 +13,7 @@ namespace YesSpa.Abp
     /// <summary>
     /// Use in Startup.Confiigure() to enable SPA routing. Use at the end of middleware chain.
     /// </summary>
-    internal static void UseAbpSpa(this IApplicationBuilder applicationBuilder, Action<IYesSpaBuilder> configuration)
+    public static void UseAbpSpa(this IApplicationBuilder applicationBuilder, Action<IYesSpaBuilder> configuration)
     {
       if(configuration == null)
         throw new ArgumentNullException(nameof(configuration));

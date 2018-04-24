@@ -14,5 +14,8 @@
     <None Include="YesSpa.AbpModule.Targets.props" Pack="true">
       <PackagePath>build\$(TargetFramework)\YesSpa.AbpModule.Targets.props</PackagePath>
     </None>
+    <None Include="YesSpa.AbpModule.Targets.targets" Pack="true">
+      <PackagePath>build\$(TargetFramework)\YesSpa.AbpModule.Targets.targets</PackagePath>
+    </None>
   </ItemGroup>
 </Project>

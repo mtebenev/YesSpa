@@ -25,7 +25,7 @@ namespace YesSpa.Common.Configuration
       var trimmedRequestPath = requestPath.Value.Trim('/');
       var result = String.IsNullOrEmpty(trimmedRequestPath)
         ? String.IsNullOrEmpty(UrlPath)
-        : UrlPath.EndsWith(trimmedRequestPath);
+        : trimmedRequestPath.StartsWith(UrlPath);
 
       return result;
     }

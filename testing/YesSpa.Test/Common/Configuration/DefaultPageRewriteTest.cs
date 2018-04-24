@@ -39,7 +39,25 @@ namespace YesSpa.Test.Common.Configuration
       var sut = fixture.Create<DefaultPageRewrite>();
 
       Assert.True(sut.IsMatching(new PathString("/")));
-      Assert.False(sut.IsMatching(new PathString("/another/path")));
+      Assert.True(sut.IsMatching(new PathString("/another/path")));
+    }
+
+    /// <summary>
+    /// Support for deep links: should serve subpaths
+    /// </summary>
+    [Fact]
+    public void Should_Work_With_Nested_Paths()
+    {
+      var fixture = new Fixture()
+        .Customize(new DefaultPageRewriteCustomization {RootUrlPath = "/angular"});
+
+      var sut = fixture.Create<DefaultPageRewrite>();
+
+      Assert.True(sut.IsMatching(new PathString("/angular/")));
+      Assert.True(sut.IsMatching(new PathString("/angular/module1")));
+      Assert.True(sut.IsMatching(new PathString("/angular/module1/")));
+      Assert.True(sut.IsMatching(new PathString("/angular/module2")));
+      Assert.True(sut.IsMatching(new PathString("/angular/module2/")));
     }
   }
 }

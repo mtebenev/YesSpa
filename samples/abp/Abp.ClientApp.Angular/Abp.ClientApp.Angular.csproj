@@ -8,13 +8,15 @@
 
   <!-- YesSpa build -->
   <PropertyGroup Condition="$(EnvDevEmbedded) == 'true'">
+    <BuildSpa>true</BuildSpa>
     <SpaBuildTools>angular</SpaBuildTools>
     <AngularBaseHref>/angular/</AngularBaseHref>
-    <AngularDeployUrl>/.Modules/AspNetCore.ClientApp.Angular/dist/</AngularDeployUrl>
+    <AngularDeployUrl>/angular/</AngularDeployUrl>
   </PropertyGroup>
 
   <!-- Necessary as we reference the Project and not the Package -->
   <Import Project="..\..\..\YesSpa.AbpModule.Targets\YesSpa.AbpModule.Targets.props" />
+  <Import Project="..\..\..\YesSpa.AbpModule.Targets\YesSpa.AbpModule.Targets.targets" />
 
   <ItemGroup>
     <PackageReference Include="Abp" Version="3.5.0" />
