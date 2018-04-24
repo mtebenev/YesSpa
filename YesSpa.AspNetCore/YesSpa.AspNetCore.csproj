@@ -4,6 +4,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PackageId>YesSpa.AspNetCore</PackageId>
+    <PackageDescription>Asp.Net Core middleware for serving SPA modules. Reference this package in host Asp.Net Core application.</PackageDescription>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.2" />
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.0.1" />

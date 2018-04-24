@@ -26,6 +26,12 @@
 		},
 		{
 			"path": "YesSpa.AspNetCore"
+		},
+		{
+			"path": "YesSpa.Abp"
+		},
+		{
+			"path": "YesSpa.AbpModule.Targets"
 		}
 	],
 	"settings": {}

@@ -7,8 +7,10 @@
 
   <PropertyGroup>
     <PackageVersion>0.1.0-preview</PackageVersion>
-    <PackageProjectUrl>https://github.com/mtebenev/yesspa</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/mtebenev/YesSpa</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/mtebenev/YesSpa/blob/develop/LICENSE</PackageLicenseUrl>
     <Authors>Maxim Tebenev</Authors>
+    <Copyright>Maxim Tebenev, 2018</Copyright>
     <PackageTags>angular,react,reactjs,spa</PackageTags>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <DebugType>portable</DebugType>
