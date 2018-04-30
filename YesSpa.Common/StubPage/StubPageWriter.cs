@@ -19,6 +19,9 @@ namespace YesSpa.Common.StubPage
     {
       _logger.LogDebug(1, "Rendering SPA stubpage");
 
+      context.Response.ContentType = "text/html; charset=utf-8";
+      context.Response.ContentLength = null; // Clear any prior Content-Length
+      
       var assembly = Assembly.GetExecutingAssembly();
       using(var resourceStream = assembly.GetManifestResourceStream("YesSpa.Common.StubPage.StubPage.html"))
       {

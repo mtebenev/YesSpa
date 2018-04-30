@@ -5,8 +5,4 @@
     <DefaultItemExcludes>dist/**;build/**;node_modules/**;$(DefaultItemExcludes)</DefaultItemExcludes>
   </PropertyGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="build/**;dist/**" />
-  </ItemGroup>
-
 </Project>

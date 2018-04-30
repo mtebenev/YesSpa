@@ -24,6 +24,7 @@ namespace YesSpa.Samples.AspNetCore.Host.Web
         app.UseDeveloperExceptionPage();
 
       app.UseMvc();
+      app.UseStaticFiles();
       app.UseSpa(builder =>
       {
         builder.AddSpa(typeof(ClientAppModuleReact).Assembly, "/react/", "/.Modules/AspNetCore.ClientApp.React/build");

@@ -26,6 +26,10 @@
     <Message Text="Angular-cli command: npx ng $(SpaBuildCmdLine)" Importance="High"/>
     <Exec Command="npx ng $(SpaBuildCmdLine)" />
 
+    <!-- Define embedded resources after SPA build -->
+    <ItemGroup>
+      <EmbeddedResource Include="dist/**" />
+    </ItemGroup>
   </Target>
 
   <!-- Launches react build -->
@@ -42,5 +46,11 @@
     <!-- TODO MTE: Recheck: env-cmd always returns 1, which produces error in MSBuild -->
     <Exec Condition="'$(EnvCmdEnvironment)'==''" Command="$(SpaBuildCmdLine)" />
     <Exec Condition="'$(EnvCmdEnvironment)'!=''" Command="$(SpaBuildCmdLine)" IgnoreExitCode="true" />
+
+    <!-- Define embedded resources after SPA build -->
+    <ItemGroup>
+      <EmbeddedResource Include="build/**" />
+    </ItemGroup>
+
   </Target>
 </Project>

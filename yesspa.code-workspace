@@ -32,6 +32,9 @@
 		},
 		{
 			"path": "YesSpa.AbpModule.Targets"
+		},
+		{
+			"path": "samples\\abp\\Abp.Host.Web"
 		}
 	],
 	"settings": {}

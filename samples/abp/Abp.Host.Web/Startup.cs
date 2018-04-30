@@ -30,6 +30,7 @@ namespace YesSpa.Samples.Abp.AbpHost.Web
 
       app.UseEmbeddedFiles();
       app.UseMvc();
+      app.UseStaticFiles();
 
       app.UseAbpSpa();
     }
