@@ -8,17 +8,16 @@ namespace YesSpa.Samples.AspNetCore.Host.Web
   {
     public static void Main(string[] args)
     {
-      BuildWebHost(args).Run();
+      CreateWebHostBuilder(args).Build().Run();
     }
 
-    public static IWebHost BuildWebHost(string[] args) =>
+    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
       WebHost.CreateDefaultBuilder(args)
         .ConfigureLogging(((hostingContext, logging) =>
         {
           logging.AddConsole();
           logging.SetMinimumLevel(LogLevel.Debug);
         }))
-        .UseStartup<Startup>()
-        .Build();
+        .UseStartup<Startup>();
   }
 }
