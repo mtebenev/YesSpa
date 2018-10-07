@@ -1,22 +1,38 @@
 <!DOCTYPE html>
 
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-<meta charset="utf-8"/>
-<title>YesSpa Stub Page</title>
+  <meta charset="utf-8" />
+  <title>YesSpa Stub Page</title>
 </head>
+
 <body>
   <h1>YesSpa Stub Page</h1>
   <p>
     YesSpa serves this URL in favor of embedded SPA.
   </p>
   <p>
-    Please use native environment in development mode (@angular/cli or create-react-app) to develop the SPA.<br/>
+    Please use native environment in development mode (@angular/cli or create-react-app) to develop the SPA.<br />
     <strong>Important:</strong> please enable CORS to make API calls.
   </p>
   <p>
     In production environment this page will be replaced with actual SPA.
   </p>
+  <p>
+    To render actual embedded application in development mode use <b>UseStubPage</b> flag in Startup.Configure():
+
+    <pre>
+      <code>
+        app.UseSpa(builder =>
+        {
+          builder.Options.UseStubPage = false;
+          builder.AddSpa(...);
+          ...
+        });
+      </code>
+    </pre>
+  </p>
 </body>
+
 </html>

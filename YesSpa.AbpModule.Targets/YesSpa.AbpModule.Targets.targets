@@ -20,7 +20,7 @@
       <SpaBuildCmdLine>build</SpaBuildCmdLine>
       <SpaBuildCmdLine Condition="'$(AngularBaseHref)' != ''">$(SpaBuildCmdLine) --base-href "$(AngularBaseHref)"</SpaBuildCmdLine>
       <SpaBuildCmdLine Condition="'$(AngularDeployUrl)' != ''">$(SpaBuildCmdLine) --deploy-url "$(AngularDeployUrl)"</SpaBuildCmdLine>
-      <SpaBuildCmdLine Condition="'$(AngularEnvironment)' != ''">$(SpaBuildCmdLine) --environment "$(AngularEnvironment)"</SpaBuildCmdLine>
+      <SpaBuildCmdLine Condition="'$(AngularConfiguration)' != ''">$(SpaBuildCmdLine) --configuration "$(AngularConfiguration)"</SpaBuildCmdLine>
     </PropertyGroup>
 
     <Message Text="Angular-cli command: npx ng $(SpaBuildCmdLine)" Importance="High"/>

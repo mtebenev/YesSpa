@@ -28,7 +28,7 @@ namespace YesSpa.Samples.AspNetCore.Host.Web
       app.UseSpa(builder =>
       {
         builder.AddSpa(typeof(ClientAppModuleReact).Assembly, "/react/", "/.Modules/AspNetCore.ClientApp.React/build");
-        builder.AddSpa(typeof(ClientAppModuleAngular).Assembly, "/angular/", "/.Modules/AspNetCore.ClientApp.Angular/dist");
+        builder.AddSpa(typeof(ClientAppModuleAngular).Assembly, "/angular/", "/.Modules/AspNetCore.ClientApp.Angular/dist/aspnetcore-clientapp-angular");
       });
     }
   }

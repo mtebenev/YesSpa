@@ -11,7 +11,7 @@
     <BuildSpa>true</BuildSpa>
     <SpaBuildTools>angular</SpaBuildTools>
     <AngularBaseHref>/angular/</AngularBaseHref>
-    <AngularDeployUrl>/angular/</AngularDeployUrl>
+    <AngularDeployUrl>/angular/dist/aspnetcore-clientapp-angular/</AngularDeployUrl>
   </PropertyGroup>
 
   <!-- Necessary as we reference the Project and not the Package -->

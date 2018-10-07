@@ -1,7 +1,7 @@
 # YesSpa
 
 YesSpa allows adding single page applications (SPA) to ASP.NET Core web projects. Currently supported SPAs are:
-- [angular/cli](https://cli.angular.io/)
+- [angular/cli](https://cli.angular.io/), version 6 and up
 - [create-react-app](https://github.com/facebook/create-react-app) (tested with [typescript version](https://github.com/wmonk/create-react-app-typescript))
 
 ## Benefits using YesSpa
@@ -20,6 +20,8 @@ During  development you use process and tools 'native' to single page applicatio
 
 ## Using with ASP.Net Core application
 
+In order to use YesSpa in your application you have to create/configure the SPA and configure host project (usually an MVC project in your solution).
+
 ### Creating client application
 1. Add another .NET standard library to your solution
 2. Create client appliation using angular/cli or create-react-app in that folder. **Important**: do not use a subfolder like ClientApp or something like that beause YesSpa's convention is to use the root library folder for building and serving SPA.
@@ -37,7 +39,7 @@ During  development you use process and tools 'native' to single page applicatio
 ```csharp
   app.UseSpa(builder =>
   {
-    builder.AddSpa(Assembly.GetAssembly(typeof(ClientAppModuleReact)), "/",              "/.Modules/ClientApp.React/build");
+    builder.AddSpa(Assembly.GetAssembly(typeof(ClientAppModuleReact)), "/", "/.Modules/ClientApp.React/build");
   });
 ```
 This should be the last middleware in ASP.NET Core middleware chain.
@@ -79,6 +81,31 @@ The call configures middleware serving SPA and tells YesSpa how to get access to
 ```
 This should be the last middleware in ASP.NET Core middleware chain.
 
+## Technical details
+
+### SPA Stub pages
+
+If you run your host application in development mode YesSpa displays the internal
+stub page when you request an SPA path. This is because by default YesSpa does not
+build the SPA during development build (to speed up build and execution). In some cases
+you may want to see the actual application when running the host application.
+To do that perform the following steps:
+
+1. Make sure you build your SPA manually, for example:
+```bash
+npx ng build
+```
+The files in dist folder will be embedded into the SPA class library.
+
+2. Modify **UseStubPage** flag in Startup.Configure():
+```csharp
+      app.UseSpa(builder =>
+      {
+        builder.Options.UseStubPage = false;
+        builder.AddSpa(...);
+        ...
+      });
+```
 
 ## Samples
 
