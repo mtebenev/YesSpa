@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <Target Name="BuildSpa" AfterTargets="AfterResolveReferences"
-          Condition="'$(BuildSpa)'=='true'">
+          Condition="'$(YesSpaBuildSpa)'=='true'">
     <Message Text="YesSpa: building SPA: $(MSBuildProjectName)" Importance="High"/>
     <Error Condition="$(SpaBuildTools) != 'angular' And $(SpaBuildTools) != 'react'"
            Text="YesSpa ($(MSBuildProjectName)): property 'SpaBuildTools' is not set or has invalid value, aborting." />

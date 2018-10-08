@@ -17,6 +17,18 @@ During  development you use process and tools 'native' to single page applicatio
 3. There is no debugger support in Visual Studio but you can use other tools like Chrome debugger and Visual Studio Code.
 4. You should use CORS in development evironment for API access (that depends on configuration but typically if API hosted by the same app as SPA you should configure the cross-origin access).
 
+## Running samples
+
+### Command line
+```bash
+cd .\samples\aspnetcore\AspNetCore.Host.Web\
+.\run-dev-embedded.cmd
+```
+
+### Visual Studio
+1. Open the solution in Visual Studio
+2. Set **samples/aspnetcore/AspNetCore.Host.Web** as startup project
+3. Run the project
 
 ## Using with ASP.Net Core application
 
@@ -106,13 +118,3 @@ The files in dist folder will be embedded into the SPA class library.
         ...
       });
 ```
-
-## Samples
-
-ABP solution with react and angular client modules:
-https://github.com/mtebenev/YesSpa/tree/develop/samples/abp
-
-ASP.NET Core solution with react and angular client modules:
-https://github.com/mtebenev/YesSpa/tree/develop/samples/aspnetcore
-
-

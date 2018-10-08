@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <Target Name="BuildSpa" BeforeTargets="EmbedModuleAssets"
-          Condition="'$(BuildSpa)'=='true'">
+          Condition="'$(YesSpaBuildSpa)'=='true'">
     <Message Text="YesSpa: building SPA: $(MSBuildProjectName)" Importance="High"/>
     <Error Condition="$(SpaBuildTools) != 'angular' And $(SpaBuildTools) != 'react'"
            Text="YesSpa ($(MSBuildProjectName)): property 'SpaBuildTools' is not set or has invalid value, aborting." />
@@ -14,6 +14,10 @@
 
   <!-- Launches angular cli build -->
   <Target Name="BuildSpaAngular">
+
+    <Message Text="$(MSBuildProjectName): restoring NPM packages..." Importance="High"/>
+    <Exec Command="npm install"/>
+
     <Message Text="Building angular SPA" Importance="High"/>
     <!-- Build command line -->
     <PropertyGroup>
@@ -34,6 +38,9 @@
 
   <!-- Launches react build -->
   <Target Name="BuildSpaReact">
+    <Message Text="$(MSBuildProjectName): restoring NPM packages..." Importance="High"/>
+    <Exec Command="npm install"/>
+
     <Message Text="Building react SPA" Importance="High"/>
 
     <!-- Build command line -->
@@ -55,7 +62,7 @@
   </Target>
 
   <Target Name="EmbedModuleAssets" AfterTargets="AfterResolveReferences"
-          Condition="'$(BuildSpa)'=='true'">
+          Condition="'$(YesSpaBuildSpa)'=='true'">
     <Message Text="YesSpa: embedding SPA: $(MSBuildProjectName)" Importance="High"/>
 
     <RemoveDuplicates Inputs="@(EmbeddedResource)">

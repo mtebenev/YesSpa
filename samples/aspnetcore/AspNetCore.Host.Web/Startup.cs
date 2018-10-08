@@ -27,6 +27,7 @@ namespace YesSpa.Samples.AspNetCore.Host.Web
       app.UseStaticFiles();
       app.UseSpa(builder =>
       {
+        builder.Options.UseStubPage = false;
         builder.AddSpa(typeof(ClientAppModuleReact).Assembly, "/react/", "/.Modules/AspNetCore.ClientApp.React/build");
         builder.AddSpa(typeof(ClientAppModuleAngular).Assembly, "/angular/", "/.Modules/AspNetCore.ClientApp.Angular/dist/aspnetcore-clientapp-angular");
       });
