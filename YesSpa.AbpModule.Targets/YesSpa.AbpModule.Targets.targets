@@ -3,12 +3,12 @@
   <Target Name="BuildSpa" AfterTargets="AfterResolveReferences"
           Condition="'$(YesSpaBuildSpa)'=='true'">
     <Message Text="YesSpa: building SPA: $(MSBuildProjectName)" Importance="High"/>
-    <Error Condition="$(SpaBuildTools) != 'angular' And $(SpaBuildTools) != 'react'"
-           Text="YesSpa ($(MSBuildProjectName)): property 'SpaBuildTools' is not set or has invalid value, aborting." />
+    <Error Condition="$(YesSpaBuildTools) != 'angular' And $(YesSpaBuildTools) != 'react'"
+           Text="YesSpa ($(MSBuildProjectName)): property 'YesSpaBuildTools' is not set or has invalid value, aborting." />
 
-    <CallTarget Condition="$(SpaBuildTools) == 'angular'"
+    <CallTarget Condition="$(YesSpaBuildTools) == 'angular'"
                 Targets="BuildSpaAngular"/>
-    <CallTarget Condition="$(SpaBuildTools) == 'react'"
+    <CallTarget Condition="$(YesSpaBuildTools) == 'react'"
                 Targets="BuildSpaReact"/>
   </Target>
 
@@ -18,9 +18,9 @@
     <!-- Build command line -->
     <PropertyGroup>
       <SpaBuildCmdLine>build</SpaBuildCmdLine>
-      <SpaBuildCmdLine Condition="'$(AngularBaseHref)' != ''">$(SpaBuildCmdLine) --base-href "$(AngularBaseHref)"</SpaBuildCmdLine>
-      <SpaBuildCmdLine Condition="'$(AngularDeployUrl)' != ''">$(SpaBuildCmdLine) --deploy-url "$(AngularDeployUrl)"</SpaBuildCmdLine>
-      <SpaBuildCmdLine Condition="'$(AngularConfiguration)' != ''">$(SpaBuildCmdLine) --configuration "$(AngularConfiguration)"</SpaBuildCmdLine>
+      <SpaBuildCmdLine Condition="'$(YesSpaAngularBaseHref)' != ''">$(SpaBuildCmdLine) --base-href "$(YesSpaAngularBaseHref)"</SpaBuildCmdLine>
+      <SpaBuildCmdLine Condition="'$(YesSpaAngularDeployUrl)' != ''">$(SpaBuildCmdLine) --deploy-url "$(YesSpaAngularDeployUrl)"</SpaBuildCmdLine>
+      <SpaBuildCmdLine Condition="'$(YesSpaAngularConfiguration)' != ''">$(SpaBuildCmdLine) --configuration "$(AngularConfiguration)"</SpaBuildCmdLine>
     </PropertyGroup>
 
     <Message Text="Angular-cli command: npx ng $(SpaBuildCmdLine)" Importance="High"/>

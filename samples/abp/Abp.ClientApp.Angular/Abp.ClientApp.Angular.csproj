@@ -9,9 +9,9 @@
   <!-- YesSpa build -->
   <PropertyGroup Condition="$(EnvDevEmbedded) == 'true'">
     <BuildSpa>true</BuildSpa>
-    <SpaBuildTools>angular</SpaBuildTools>
-    <AngularBaseHref>/angular/</AngularBaseHref>
-    <AngularDeployUrl>/angular/dist/aspnetcore-clientapp-angular/</AngularDeployUrl>
+    <YesSpaBuildTools>angular</YesSpaBuildTools>
+    <YesSpaAngularBaseHref>/angular/</YesSpaAngularBaseHref>
+    <YesSpaAngularDeployUrl>/angular/dist/aspnetcore-clientapp-angular/</YesSpaAngularDeployUrl>
   </PropertyGroup>
 
   <!-- Necessary as we reference the Project and not the Package -->

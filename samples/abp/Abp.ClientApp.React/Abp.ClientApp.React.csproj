@@ -9,7 +9,7 @@
   <!-- YesSpa build -->
   <PropertyGroup Condition="$(EnvDevEmbedded) == 'true'">
     <BuildSpa>true</BuildSpa>
-    <SpaBuildTools>react</SpaBuildTools>
+    <YesSpaBuildTools>react</YesSpaBuildTools>
   </PropertyGroup>
 
   <!-- Necessary as we reference the Project and not the Package -->

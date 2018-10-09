@@ -9,9 +9,9 @@
   <!-- YesSpa build -->
   <PropertyGroup>
     <YesSpaBuildSpa>true</YesSpaBuildSpa>
-    <SpaBuildTools>angular</SpaBuildTools>
-    <AngularBaseHref>/angular/</AngularBaseHref>
-    <AngularDeployUrl>/.Modules/AspNetCore.ClientApp.Angular/dist/aspnetcore-clientapp-angular/</AngularDeployUrl>
+    <YesSpaBuildTools>angular</YesSpaBuildTools>
+    <YesSpaAngularBaseHref>/angular/</YesSpaAngularBaseHref>
+    <YesSpaAngularDeployUrl>/.Modules/AspNetCore.ClientApp.Angular/dist/aspnetcore-clientapp-angular/</YesSpaAngularDeployUrl>
   </PropertyGroup>
 
   <!-- Necessary as we reference the Project and not the Package -->

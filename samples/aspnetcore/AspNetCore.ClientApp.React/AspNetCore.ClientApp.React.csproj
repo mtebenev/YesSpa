@@ -9,7 +9,7 @@
   <!-- YesSpa build -->
   <PropertyGroup>
     <YesSpaBuildSpa>true</YesSpaBuildSpa>
-    <SpaBuildTools>react</SpaBuildTools>
+    <YesSpaBuildTools>react</YesSpaBuildTools>
   </PropertyGroup>
 
   <!-- Necessary as we reference the Project and not the Package -->
