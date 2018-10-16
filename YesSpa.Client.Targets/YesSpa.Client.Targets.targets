@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <Target Name="BuildSpa" BeforeTargets="EmbedModuleAssets"
-          Condition="'$(YesSpaBuildSpa)'=='true'">
+          Condition="'$(YesSpaEnabled)'=='true'">
     <Message Text="YesSpa: building SPA: $(MSBuildProjectName)" Importance="High"/>
     <Error Condition="$(YesSpaBuildTools) != 'angular' And $(YesSpaBuildTools) != 'react'"
            Text="YesSpa ($(MSBuildProjectName)): property 'YesSpaBuildTools' is not set or has invalid value, aborting." />
@@ -15,20 +15,23 @@
   <!-- Launches angular cli build -->
   <Target Name="BuildSpaAngular">
 
-    <Message Text="$(MSBuildProjectName): restoring NPM packages..." Importance="High"/>
-    <Exec Command="npm install"/>
+    <Message Condition="'$(YesSpaSkipNpmInstall)'!='true'" Text="$(MSBuildProjectName): restoring NPM packages..." Importance="High"/>
+    <Message Condition="'$(YesSpaSkipNpmInstall)'=='true'" Text="$(MSBuildProjectName): skipped npm install" Importance="High"/>
+    <Exec Condition="'$(YesSpaSkipNpmInstall)'!='true'" Command="npm install"/>
 
-    <Message Text="Building angular SPA" Importance="High"/>
+    <Message Condition="'$(YesSpaSkipSpaBuild)'!='true'" Text="$(MSBuildProjectName): building angular SPA..." Importance="High"/>
+    <Message Condition="'$(YesSpaSkipSpaBuild)'=='true'" Text="$(MSBuildProjectName): skipped building angular SPA" Importance="High"/>
+
     <!-- Build command line -->
     <PropertyGroup>
       <SpaBuildCmdLine>build</SpaBuildCmdLine>
       <SpaBuildCmdLine Condition="'$(YesSpaAngularBaseHref)' != ''">$(SpaBuildCmdLine) --base-href "$(YesSpaAngularBaseHref)"</SpaBuildCmdLine>
       <SpaBuildCmdLine Condition="'$(YesSpaAngularDeployUrl)' != ''">$(SpaBuildCmdLine) --deploy-url "$(YesSpaAngularDeployUrl)"</SpaBuildCmdLine>
-      <SpaBuildCmdLine Condition="'$(YesSpaAngularConfiguration)' != ''">$(SpaBuildCmdLine) --configuration "$(AngularConfiguration)"</SpaBuildCmdLine>
+      <SpaBuildCmdLine Condition="'$(YesSpaAngularConfiguration)' != ''">$(SpaBuildCmdLine) --configuration "$(YesSpaAngularConfiguration)"</SpaBuildCmdLine>
     </PropertyGroup>
 
-    <Message Text="Angular-cli command: npx ng $(SpaBuildCmdLine)" Importance="High"/>
-    <Exec Command="npx ng $(SpaBuildCmdLine)" />
+    <Message Condition="'$(YesSpaSkipSpaBuild)'!='true'" Text="Angular-cli command: npx ng $(SpaBuildCmdLine)" Importance="High"/>
+    <Exec Condition="'$(YesSpaSkipSpaBuild)'!='true'" Command="npx ng $(SpaBuildCmdLine)" />
 
     <!-- Define embedded resources after SPA build -->
     <ItemGroup>
@@ -38,21 +41,23 @@
 
   <!-- Launches react build -->
   <Target Name="BuildSpaReact">
-    <Message Text="$(MSBuildProjectName): restoring NPM packages..." Importance="High"/>
-    <Exec Command="npm install"/>
+    <Message Condition="'$(YesSpaSkipNpmInstall)'!='true'" Text="$(MSBuildProjectName): restoring NPM packages..." Importance="High"/>
+    <Message Condition="'$(YesSpaSkipNpmInstall)'=='true'" Text="$(MSBuildProjectName): skipped npm install" Importance="High"/>
+    <Exec Condition="'$(YesSpaSkipNpmInstall)'!='true'" Command="npm install"/>
 
-    <Message Text="Building react SPA" Importance="High"/>
+    <Message Condition="'$(YesSpaSkipSpaBuild)'!='true'" Text="$(MSBuildProjectName): building react SPA..." Importance="High"/>
+    <Message Condition="'$(YesSpaSkipSpaBuild)'=='true'" Text="$(MSBuildProjectName): skipped building react SPA" Importance="High"/>
 
     <!-- Build command line -->
     <PropertyGroup>
       <SpaBuildCmdLine>npm run build</SpaBuildCmdLine>
-      <SpaBuildCmdLine Condition="'$(EnvCmdEnvironment)'!=''">npx env-cmd $(EnvCmdEnvironment) npm run build</SpaBuildCmdLine>
+      <SpaBuildCmdLine Condition="'$(YesSpaEnvCmdEnvironment)'!=''">npx env-cmd $(YesSpaEnvCmdEnvironment) npm run build</SpaBuildCmdLine>
     </PropertyGroup>
 
-    <Message Text="create-react-app command: $(SpaBuildCmdLine)" Importance="High"/>
+    <Message Condition="'$(YesSpaSkipSpaBuild)'!='true'" Text="create-react-app command: $(SpaBuildCmdLine)" Importance="High"/>
     <!-- TODO MTE: Recheck: env-cmd always returns 1, which produces error in MSBuild -->
-    <Exec Condition="'$(EnvCmdEnvironment)'==''" Command="$(SpaBuildCmdLine)" />
-    <Exec Condition="'$(EnvCmdEnvironment)'!=''" Command="$(SpaBuildCmdLine)" IgnoreExitCode="true" />
+    <Exec Condition="'$(YesSpaSkipSpaBuild)'!='true' AND '$(YesSpaEnvCmdEnvironment)'==''" Command="$(SpaBuildCmdLine)" />
+    <Exec Condition="'$(YesSpaSkipSpaBuild)'!='true' AND '$(YesSpaEnvCmdEnvironment)'!=''" Command="$(SpaBuildCmdLine)" IgnoreExitCode="true" />
 
     <!-- Define embedded resources after SPA build -->
     <ItemGroup>
@@ -62,7 +67,7 @@
   </Target>
 
   <Target Name="EmbedModuleAssets" AfterTargets="AfterResolveReferences"
-          Condition="'$(YesSpaBuildSpa)'=='true'">
+          Condition="'$(YesSpaEnabled)'=='true'">
     <Message Text="YesSpa: embedding SPA: $(MSBuildProjectName)" Importance="High"/>
 
     <RemoveDuplicates Inputs="@(EmbeddedResource)">

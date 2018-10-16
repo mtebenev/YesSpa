@@ -69,11 +69,24 @@ The call configures middleware serving SPA and tells YesSpa how to get access to
 * **"/"** - means that SPA will be served at root URL
 * **"/.Modules/ClientApp.React/build"** - path in resources to embedded package (in this case ClientApp.React is name of assembly containing SPA).
 
-### Configuring SPA buld
+### Configuring SPA build
 
-When you reference **YesSpa.Client.Targets** in an SPA module it adjusts the build process so that MSBuild executes tasks for building the SPA and embedding result files into the SPA assembly. You enable the SPA build by passing **YesSpaBuildSpa=true** to MSBuild.
+When you reference **YesSpa.Client.Targets** in an SPA module it adjusts the build process so that MSBuild executes tasks for building the SPA and embedding result files into the SPA assembly. You enable the SPA build by passing **YesSpaEnabled=true** to MSBuild.
 
-You can perform that in a number of ways: set the property explicitly in csproj files (like in the sample application), pass the property in dotnet build command line.
+You can perform that in two ways: set the property explicitly in csproj files (like in the sample application) and pass the property in dotnet build command line.
+Common SPA build settings:
+
+**YesSpaEnabled=true**  
+Should be set to set to true to enable whole YesSpa during the build.
+
+**YesSpaSkipSpaBuild=true**  
+Pass to skip SPA build. Use with caution because if there's no SPA build files they will not be embedded in assembly.
+You have to build SPA manually when using this option (e.g. 'ng biuld').
+
+**YesSpaSkipNpmInstall=true**  
+Pass to skip npm install call during the build. Use with caution because if there's no npm packages installed SPA build will fail.
+You have to update NPM packages manually when using this option (e.g. 'npm install').
+
 
 There are also framework-specific settings that should be set in order to build the SPA.
 
@@ -106,6 +119,11 @@ For React application you have to configure PUBLIC_URL in .env file
 For example:  
 PUBLIC_URL=/.Modules/AspNetCore.ClientApp.React/build  
 Check details at [create react app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#advanced-configuration)
+
+**YesSpaEnvCmdEnvironment=_env_cmd_environment_**  
+Sets environment name for react apps using .env-cmdrc
+
+Check details at [env-cmd repository](https://github.com/toddbluhm/env-cmd)
 
 ## Technical details
 

@@ -8,7 +8,7 @@
 
   <!-- YesSpa build -->
   <PropertyGroup Condition="$(EnvDevEmbedded) == 'true'">
-    <BuildSpa>true</BuildSpa>
+    <YesSpaEnabled>true</YesSpaEnabled>
     <YesSpaBuildTools>react</YesSpaBuildTools>
   </PropertyGroup>
 
