@@ -1,3 +1,4 @@
+using System;
 using YesSpa.Common.Configuration;
 
 namespace YesSpa.Abp
@@ -9,8 +10,8 @@ namespace YesSpa.Abp
     /// </summary>
     protected override DefaultPageRewrite GetDefaultPageRewrite(SpaSettings spaSettings)
     {
-      var defaultPagePath = $"/{spaSettings.RootUrlPath.Trim('/')}/index.html";
-      var result = new DefaultPageRewrite(spaSettings.RootUrlPath, defaultPagePath);
+      var defaultPagePath = $"/{spaSettings.RootUrlPath.Trim('/')}";
+      var result = new DefaultPageRewrite(spaSettings.RootUrlPath, defaultPagePath, "index.html");
 
       return result;
     }

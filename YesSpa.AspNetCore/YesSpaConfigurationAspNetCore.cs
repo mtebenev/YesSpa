@@ -9,8 +9,8 @@ namespace YesSpa.AspNetCore
     /// </summary>
     protected override DefaultPageRewrite GetDefaultPageRewrite(SpaSettings spaSettings)
     {
-      var defaultPagePath = $"{spaSettings.EmbeddedUrlRoot.TrimEnd('/')}/index.html"; // for aspnetcore
-      var result = new DefaultPageRewrite(spaSettings.RootUrlPath, defaultPagePath);
+      var defaultPagePath = spaSettings.EmbeddedUrlRoot.TrimEnd('/'); // for aspnetcore
+      var result = new DefaultPageRewrite(spaSettings.RootUrlPath, defaultPagePath, "index.html");
 
       return result;
     }

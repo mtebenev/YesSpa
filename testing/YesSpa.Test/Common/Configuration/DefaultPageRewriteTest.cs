@@ -15,16 +15,20 @@ namespace YesSpa.Test.Common.Configuration
     public void Should_Work_With_Non_Root_Paths()
     {
       var fixture = new Fixture()
-        .Customize(new DefaultPageRewriteCustomization {RootUrlPath = "/react/"})
-        .Customize(new DefaultPageWriterCustomization());
+        .Customize(new DefaultPageRewriteCustomization {RootUrlPath = "/react/", DefaultPagePath = "/embedded-path"})
+        .Customize(new SpaPageWriterCustomization());
 
       var sut = fixture.Create<DefaultPageRewrite>();
+      string newPathRequest;
 
-      Assert.True(sut.IsMatching(new PathString("/react")));
-      Assert.True(sut.IsMatching(new PathString("/react/")));
+      Assert.True(sut.MatchRequest(new PathString("/react"), out newPathRequest));
+      Assert.Equal("/embedded-path/index.html", newPathRequest);
 
-      Assert.False(sut.IsMatching(new PathString("/another/path")));
-      Assert.False(sut.IsMatching(new PathString("/")));
+      Assert.True(sut.MatchRequest(new PathString("/react/"), out newPathRequest));
+      Assert.Equal("/embedded-path/index.html", newPathRequest);
+
+      Assert.False(sut.MatchRequest(new PathString("/another/path"), out newPathRequest));
+      Assert.False(sut.MatchRequest(new PathString("/"), out newPathRequest));
     }
 
     /// <summary>
@@ -34,12 +38,16 @@ namespace YesSpa.Test.Common.Configuration
     public void Should_Work_With_Root_Paths()
     {
       var fixture = new Fixture()
-        .Customize(new DefaultPageRewriteCustomization {RootUrlPath = "/"});
+        .Customize(new DefaultPageRewriteCustomization {RootUrlPath = "/", DefaultPagePath = "/embedded-path" });
 
       var sut = fixture.Create<DefaultPageRewrite>();
+      string newPathRequest;
 
-      Assert.True(sut.IsMatching(new PathString("/")));
-      Assert.True(sut.IsMatching(new PathString("/another/path")));
+      Assert.True(sut.MatchRequest(new PathString("/"), out newPathRequest));
+      Assert.Equal("/embedded-path/index.html", newPathRequest);
+
+      Assert.True(sut.MatchRequest(new PathString("/another/path"), out newPathRequest));
+      Assert.Equal("/embedded-path/another/path", newPathRequest);
     }
 
     /// <summary>
@@ -49,15 +57,25 @@ namespace YesSpa.Test.Common.Configuration
     public void Should_Work_With_Nested_Paths()
     {
       var fixture = new Fixture()
-        .Customize(new DefaultPageRewriteCustomization {RootUrlPath = "/angular"});
+        .Customize(new DefaultPageRewriteCustomization {RootUrlPath = "/angular", DefaultPagePath = "/embedded-path" });
 
       var sut = fixture.Create<DefaultPageRewrite>();
+      string newPathRequest;
 
-      Assert.True(sut.IsMatching(new PathString("/angular/")));
-      Assert.True(sut.IsMatching(new PathString("/angular/module1")));
-      Assert.True(sut.IsMatching(new PathString("/angular/module1/")));
-      Assert.True(sut.IsMatching(new PathString("/angular/module2")));
-      Assert.True(sut.IsMatching(new PathString("/angular/module2/")));
+      Assert.True(sut.MatchRequest(new PathString("/angular/"), out newPathRequest));
+      Assert.Equal("/embedded-path/index.html", newPathRequest);
+
+      Assert.True(sut.MatchRequest(new PathString("/angular/module1"), out newPathRequest));
+      Assert.Equal("/embedded-path/module1", newPathRequest);
+
+      Assert.True(sut.MatchRequest(new PathString("/angular/module1/"), out newPathRequest));
+      Assert.Equal("/embedded-path/module1", newPathRequest);
+
+      Assert.True(sut.MatchRequest(new PathString("/angular/module2"), out newPathRequest));
+      Assert.Equal("/embedded-path/module2", newPathRequest);
+
+      Assert.True(sut.MatchRequest(new PathString("/angular/module2/"), out newPathRequest));
+      Assert.Equal("/embedded-path/module2", newPathRequest);
     }
   }
 }

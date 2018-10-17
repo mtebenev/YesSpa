@@ -23,12 +23,12 @@ namespace YesSpa.Abp
       var logger = loggerFactory.CreateLogger<SpaMiddlewareAbp>();
 
       var stubPageWriter = new StubPageWriter(logger);
-      var defaultPageWriter = new DefaultPageWriter(spaConfiguration, stubPageWriter, logger, hostingEnvironment.IsDevelopment(), options.UseStubPage);
+      var defaultPageWriter = new SpaPageWriter(spaConfiguration, stubPageWriter, logger, hostingEnvironment.IsDevelopment(), options.UseStubPage);
 
       // Rewrite requests to the default pages
       app.Use(async (context, next) =>
       {
-        var shouldStop = await defaultPageWriter.WriteDefaultPage(context);
+        var shouldStop = await defaultPageWriter.TryRewriteSpaRequest(context);
         if(!shouldStop)
           await next();
       });

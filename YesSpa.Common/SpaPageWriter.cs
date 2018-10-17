@@ -9,7 +9,11 @@ using YesSpa.Common.StubPage;
 
 namespace YesSpa.Common
 {
-  public class DefaultPageWriter
+  /// <summary>
+  /// Encapsulates logic for rewriting SPA HTTP requests to modular HTTP requests
+  /// E.g. /angular -> /.Modules/AspNetCore.ClientApp.Angular/dist/aspnetcore-clientapp-angular/index.html
+  /// </summary>
+  public class SpaPageWriter
   {
     private readonly IReadOnlyList<DefaultPageRewrite> _defaultPageRewrites;
     private readonly bool _isDevelopmentEnvironment;
@@ -19,7 +23,7 @@ namespace YesSpa.Common
 
     private readonly Action<ILogger, string, bool, Exception> _logRequestMatch;
 
-    public DefaultPageWriter(IYesSpaConfiguration spaConfiguration, IStubPageWriter stubPageWriter, ILogger logger, bool isDevelopmentEnvironment, bool useStubPage)
+    public SpaPageWriter(IYesSpaConfiguration spaConfiguration, IStubPageWriter stubPageWriter, ILogger logger, bool isDevelopmentEnvironment, bool useStubPage)
     {
       _isDevelopmentEnvironment = isDevelopmentEnvironment;
       _useStubPage = useStubPage;
@@ -32,13 +36,15 @@ namespace YesSpa.Common
     }
 
     /// <summary>
+    /// Looks for matched modular path and rewrites HTTP request if found
     /// Returns true if further middleware chain should be stopped
     /// </summary>
-    public async Task<bool> WriteDefaultPage(HttpContext context)
+    public async Task<bool> TryRewriteSpaRequest(HttpContext context)
     {
       var result = false;
 
-      var pageRewrite = _defaultPageRewrites.FirstOrDefault(r => r.IsMatching(context.Request.Path));
+      string newRequestPath = null;
+      var pageRewrite = _defaultPageRewrites.FirstOrDefault(r => r.MatchRequest(context.Request.Path, out newRequestPath));
       _logRequestMatch(_logger, context.Request.Path.Value, pageRewrite != null, null);
       if(pageRewrite != null)
       {
@@ -50,7 +56,7 @@ namespace YesSpa.Common
         }
         else
         {
-          context.Request.Path = pageRewrite.DefaultPagePath; // Rewrite url, don't stop processing
+          context.Request.Path = newRequestPath; // Rewrite url, don't stop processing
         }
       }
 

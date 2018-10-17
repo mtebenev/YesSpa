@@ -9,7 +9,6 @@ namespace YesSpa.Common.Configuration
     /// </summary>
     void AddSpa(string rootUrlPath, string embeddedUrlRoot);
 
-    IReadOnlyList<SpaSettings> SpaSettings { get; }
     IReadOnlyList<DefaultPageRewrite> SpaDefaultPageRewrites { get; }
   }
 }

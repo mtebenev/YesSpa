@@ -18,8 +18,6 @@ namespace YesSpa.Common.Configuration
       _spaSettings.Add(settings);
     }
 
-    public IReadOnlyList<SpaSettings> SpaSettings => _spaSettings;
-
     public IReadOnlyList<DefaultPageRewrite> SpaDefaultPageRewrites
     {
       get

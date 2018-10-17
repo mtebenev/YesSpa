@@ -6,9 +6,9 @@ using YesSpa.Common.StubPage;
 
 namespace YesSpa.Test.Testing
 {
-  internal class DefaultPageWriterCustomization : ICustomization
+  internal class SpaPageWriterCustomization : ICustomization
   {
-    public DefaultPageWriterCustomization()
+    public SpaPageWriterCustomization()
     {
       UseStubPage = false;
       IsDevelopmentEnvironment = false;
@@ -19,8 +19,8 @@ namespace YesSpa.Test.Testing
     public void Customize(IFixture fixture)
     {
       fixture
-        .Customize<DefaultPageWriter>(c => c.FromFactory(
-          () => new DefaultPageWriter(
+        .Customize<SpaPageWriter>(c => c.FromFactory(
+          () => new SpaPageWriter(
             fixture.Create<IYesSpaConfiguration>(),
             fixture.Create<IStubPageWriter>(),
             fixture.Create<ILogger>(),
