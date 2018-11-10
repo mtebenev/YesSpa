@@ -9,9 +9,9 @@ namespace YesSpa.Common.Configuration
   /// defaultPagePath - embedded path to SPA root  ('/.Modules/module/dist/app')
   /// indexPageFileName - file name for index page ('index.html')
   /// </summary>
-  public class DefaultPageRewrite
+  public abstract class DefaultPageRewriteBase : IDefaultPageRewrite
   {
-    public DefaultPageRewrite(string urlPath, string defaultPagePath, string indexPageFileName)
+    protected DefaultPageRewriteBase(string urlPath, string defaultPagePath, string indexPageFileName)
     {
       UrlPath = urlPath.Trim('/');
       DefaultPagePath = defaultPagePath;
@@ -22,10 +22,6 @@ namespace YesSpa.Common.Configuration
     public string DefaultPagePath { get; }
     public string IndexPageFileName { get; }
 
-    /// <summary>
-    /// Returns true if the request matches to an SPA URL, so need to rewrite to default index.html
-    /// newRequestPath filled with the new request path (modular path)
-    /// </summary>
     public bool MatchRequest(PathString requestPath, out string newRequestPath)
     {
       newRequestPath = null;
@@ -45,13 +41,26 @@ namespace YesSpa.Common.Configuration
         if(trimmedRequestPath.StartsWith(UrlPath))
         {
           result = true;
-          newRequestPath = trimmedRequestPath.Length == UrlPath.Length
+          string embeddedResourcePath = "";
+
+          if(trimmedRequestPath.Length > UrlPath.Length)
+            embeddedResourcePath = $"{DefaultPagePath}/{trimmedRequestPath.Substring(UrlPath.Length > 1 ? UrlPath.Length + 1 : 0)}"; // +1 for '/'
+
+          // For nested (actually client paths) we check if the actual file exists (embedded resource like icon)
+          newRequestPath = (trimmedRequestPath.Length == UrlPath.Length) || !IsEmbeddedResourceExists(embeddedResourcePath)
             ? $"{DefaultPagePath}/{IndexPageFileName}"
-            : $"{DefaultPagePath}/{trimmedRequestPath.Substring(UrlPath.Length > 1 ? UrlPath.Length + 1 : 0)}"; // +1 for '/'
+            : embeddedResourcePath;
         }
       }
 
       return result;
     }
+
+    /// <summary>
+    /// Override in derived class. Should check if a given embedded resource exists
+    /// </summary>
+    /// <param name="path">Embedded resource path</param>
+    /// <returns>True if the resource exists</returns>
+    protected abstract bool IsEmbeddedResourceExists(string path);
   }
 }
