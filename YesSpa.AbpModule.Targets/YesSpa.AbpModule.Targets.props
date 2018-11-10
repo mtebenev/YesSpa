@@ -1,8 +1,0 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
-  <!-- Convention: a module must contain one client application located in client-app folder  -->
-  <PropertyGroup>
-    <DefaultItemExcludes>dist/**;build/**;node_modules/**;$(DefaultItemExcludes)</DefaultItemExcludes>
-  </PropertyGroup>
-
-</Project>
