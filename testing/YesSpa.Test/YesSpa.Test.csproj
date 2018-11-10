@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\YesSpa.Abp\YesSpa.Abp.csproj" />
     <ProjectReference Include="..\..\YesSpa.AspNetCore\YesSpa.AspNetCore.csproj" />
   </ItemGroup>
 
