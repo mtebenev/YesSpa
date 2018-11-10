@@ -15,7 +15,7 @@ namespace YesSpa.Common
   /// </summary>
   public class SpaPageWriter
   {
-    private readonly IReadOnlyList<DefaultPageRewrite> _defaultPageRewrites;
+    private readonly IReadOnlyList<IDefaultPageRewrite> _defaultPageRewrites;
     private readonly bool _isDevelopmentEnvironment;
     private readonly bool _useStubPage;
     private readonly IStubPageWriter _stubPageWriter;

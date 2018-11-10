@@ -11,7 +11,7 @@ namespace YesSpa.AspNetCore
   public static class ApplicationBuilderExtensions
   {
     /// <summary>
-    /// Use in Startup.Confiigure() to enable SPA routing. Use at the end of middleware chain.
+    /// Use in Startup.Configure() to enable SPA routing. Use at the end of middleware chain.
     /// </summary>
     public static void UseSpa(this IApplicationBuilder applicationBuilder, Action<IYesSpaBuilder> configuration)
     {

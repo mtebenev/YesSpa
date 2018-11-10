@@ -1,3 +1,4 @@
+using System;
 using AutoFixture;
 using YesSpa.Common.Configuration;
 
@@ -11,10 +12,12 @@ namespace YesSpa.Test.Testing
     /// <summary>
     /// Adds YesSpaConfiguration with single app mapping: '/angular/' -> '/.Modules/module/dist/app'
     /// </summary>
-    public static IFixture WithYesSpaConfigurationAngular(this IFixture fixture)
+    public static IFixture WithYesSpaConfigurationAngular(this IFixture fixture, Action<YesSpaConfigurationAspNetCoreCustomization> cb = null)
     {
-      var customization = new YesSpaConfigurationCustomization();
+      var customization = new YesSpaConfigurationAspNetCoreCustomization();
       customization.SpaSettings.Add(new SpaSettings("/angular/", "/.Modules/module/dist/app"));
+
+      cb?.Invoke(customization);
       fixture.Customize(customization);
 
       return fixture;

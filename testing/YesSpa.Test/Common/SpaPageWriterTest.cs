@@ -3,8 +3,10 @@ using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.FileProviders;
 using Moq;
 using Xunit;
+using YesSpa.AspNetCore;
 using YesSpa.Common;
 using YesSpa.Common.Configuration;
 using YesSpa.Common.StubPage;
@@ -22,9 +24,10 @@ namespace YesSpa.Test.Common
         .Customize(new SpaPageWriterCustomization {IsDevelopmentEnvironment = true, UseStubPage = true})
         .WithHttpContext("/test-request");
 
+      var mockEmbeddedFileProvider = new Mock<IFileProvider>();
       var mockSpaConfiguration = new Mock<IYesSpaConfiguration>();
       mockSpaConfiguration.SetupGet(x => x.SpaDefaultPageRewrites)
-        .Returns(new List<DefaultPageRewrite> {new DefaultPageRewrite("/test-request", "/page-path", "index.html")});
+        .Returns(new List<DefaultPageRewriteAspNetCore> {new DefaultPageRewriteAspNetCore("/test-request", "/page-path", "index.html", mockEmbeddedFileProvider.Object)});
 
       fixture.Register(() => mockSpaConfiguration.Object);
       var httpContext = fixture.Create<HttpContext>();
@@ -43,9 +46,10 @@ namespace YesSpa.Test.Common
         .Customize(new SpaPageWriterCustomization {IsDevelopmentEnvironment = false})
         .WithHttpContext("/test-request");
 
+      var mockEmbeddedFileProvider = new Mock<IFileProvider>();
       var mockSpaConfiguration = fixture.Freeze<Mock<IYesSpaConfiguration>>();
       mockSpaConfiguration.SetupGet(x => x.SpaDefaultPageRewrites)
-        .Returns(new List<DefaultPageRewrite> {new DefaultPageRewrite("/test-request", "/page-path", "index.html")});
+        .Returns(new List<DefaultPageRewriteAspNetCore> { new DefaultPageRewriteAspNetCore("/test-request", "/page-path", "index.html", mockEmbeddedFileProvider.Object) });
 
       var httpContext = fixture.Create<HttpContext>();
       var sut = fixture.Create<SpaPageWriter>();
@@ -64,9 +68,10 @@ namespace YesSpa.Test.Common
         .WithHttpContext("/test-request");
 
       var mockStubPageWriter = fixture.Freeze<Mock<IStubPageWriter>>();
+      var mockEmbeddedFileProvider = new Mock<IFileProvider>();
       var mockSpaConfiguration = fixture.Freeze<Mock<IYesSpaConfiguration>>();
       mockSpaConfiguration.SetupGet(x => x.SpaDefaultPageRewrites)
-        .Returns(new List<DefaultPageRewrite> {new DefaultPageRewrite("/test-request", "/page-path", "index.html")});
+        .Returns(new List<DefaultPageRewriteAspNetCore> { new DefaultPageRewriteAspNetCore("/test-request", "/page-path", "index.html", mockEmbeddedFileProvider.Object) });
 
       var httpContext = fixture.Create<HttpContext>();
       var sut = fixture.Create<SpaPageWriter>();
@@ -105,9 +110,9 @@ namespace YesSpa.Test.Common
     {
       var fixture = new Fixture()
         .Customize(new AutoMoqCustomization { ConfigureMembers = true })
-        .Customize(new SpaPageWriterCustomization { IsDevelopmentEnvironment = false, UseStubPage = false })
+        .Customize(new SpaPageWriterCustomization { IsDevelopmentEnvironment = false, UseStubPage = false})
         .WithHttpContext("/angular/favicon.ico")
-        .WithYesSpaConfigurationAngular();
+        .WithYesSpaConfigurationAngular(c => c.WithEmbeddedResource("/.Modules/module/dist/app/favicon.ico"));
 
       var sut = fixture.Create<SpaPageWriter>();
 
@@ -116,8 +121,6 @@ namespace YesSpa.Test.Common
 
       Assert.False(shouldStop);
       Assert.Equal("/.Modules/module/dist/app/favicon.ico", httpContext.Request.Path);
-
     }
-
   }
 }

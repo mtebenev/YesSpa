@@ -18,7 +18,7 @@ namespace YesSpa.Common.Configuration
       _spaSettings.Add(settings);
     }
 
-    public IReadOnlyList<DefaultPageRewrite> SpaDefaultPageRewrites
+    public IReadOnlyList<IDefaultPageRewrite> SpaDefaultPageRewrites
     {
       get
       {
@@ -32,6 +32,6 @@ namespace YesSpa.Common.Configuration
     /// <summary>
     /// Concrete implementation depends on modular system
     /// </summary>
-    protected abstract DefaultPageRewrite GetDefaultPageRewrite(SpaSettings spaSettings);
+    protected abstract IDefaultPageRewrite GetDefaultPageRewrite(SpaSettings spaSettings);
   }
 }
