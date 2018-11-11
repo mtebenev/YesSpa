@@ -1,34 +1,20 @@
-using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using YesSpa.Common.Configuration;
 
 namespace YesSpa.AspNetCore
 {
   internal class YesSpaBuilderAspNetCore : IYesSpaBuilder
   {
-    private readonly List<ISpaModule> _spaModules;
+    private readonly List<IAssemblyWrapper> _spaAssemblies;
     private readonly List<SpaSettings> _spaSettings;
-    private readonly ILogger<SpaModuleAssembly> _logger;
 
-    public YesSpaBuilderAspNetCore(IApplicationBuilder applicationBuilder, YesSpaOptions options)
+    public YesSpaBuilderAspNetCore()
     {
-      _spaModules = new List<ISpaModule>();
+      _spaAssemblies = new List<IAssemblyWrapper>();
       _spaSettings = new List<SpaSettings>();
-
-      ApplicationBuilder = applicationBuilder ?? throw new ArgumentNullException(nameof(applicationBuilder));
-      Options = options ?? throw new ArgumentNullException(nameof(options));
-      var loggerFactory = applicationBuilder.ApplicationServices.GetRequiredService<ILoggerFactory>();
-      _logger = loggerFactory.CreateLogger<SpaModuleAssembly>();
+      Options = new YesSpaOptions();
     }
-
-    /// <summary>
-    /// IYesSpaBuilder
-    /// </summary>
-    public IApplicationBuilder ApplicationBuilder { get; }
 
     /// <summary>
     /// IYesSpaBuilder
@@ -38,15 +24,19 @@ namespace YesSpa.AspNetCore
     /// <summary>
     /// IYesSpaBuilder
     /// </summary>
-    public void AddSpa(Assembly assembly, string rootUrlPath, string embeddedUrlRoot)
+    public IYesSpaBuilder AddSpa(Assembly assembly, string rootUrlPath, string embeddedUrlRoot)
     {
       var assemblyWrapper = new AssemblyWrapper(assembly);
-      var spaModule = new SpaModuleAssembly(assemblyWrapper, _logger);
-      _spaModules.Add(spaModule);
+      _spaAssemblies.Add(assemblyWrapper);
       _spaSettings.Add(new SpaSettings(rootUrlPath, embeddedUrlRoot));
+
+      return this;
     }
 
-    public IReadOnlyList<ISpaModule> SpaModules => _spaModules;
-    public IReadOnlyList<SpaSettings> SpaSettings => _spaSettings;
+    public IYesSpaConfiguration BuildConfiguration()
+    {
+      var configuration = new YesSpaConfigurationAspNetCore(_spaAssemblies, _spaSettings, Options);
+      return configuration;
+    }
   }
 }

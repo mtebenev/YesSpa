@@ -11,22 +11,18 @@ namespace YesSpa.AspNetCore
 {
   internal class SpaMiddlewareAspNetCore
   {
-    public static void Attach(IYesSpaBuilder spaBuilder, StaticFileOptions staticFileOptions, IYesSpaConfiguration spaConfiguration)
+    public static void Attach(IApplicationBuilder applicationBuilder, StaticFileOptions staticFileOptions, IYesSpaConfiguration spaConfiguration)
     {
-      if(spaBuilder == null)
-        throw new ArgumentNullException(nameof(spaBuilder));
-
-      var app = spaBuilder.ApplicationBuilder;
-      var options = spaBuilder.Options;
-      var hostingEnvironment = spaBuilder.ApplicationBuilder.ApplicationServices.GetService<IHostingEnvironment>();
-      var loggerFactory = spaBuilder.ApplicationBuilder.ApplicationServices.GetRequiredService<ILoggerFactory>();
+      var options = spaConfiguration.Options;
+      var hostingEnvironment = applicationBuilder.ApplicationServices.GetService<IHostingEnvironment>();
+      var loggerFactory = applicationBuilder.ApplicationServices.GetRequiredService<ILoggerFactory>();
       var logger = loggerFactory.CreateLogger<SpaMiddlewareAspNetCore>();
 
       var stubPageWriter = new StubPageWriter(logger);
       var defaultPageWriter = new SpaPageWriter(spaConfiguration, stubPageWriter, logger, hostingEnvironment.IsDevelopment(), options.UseStubPage);
 
       // Rewrite requests to the default pages
-      app.Use(async (context, next) =>
+      applicationBuilder.Use(async (context, next) =>
       {
         var shouldStop = await defaultPageWriter.TryRewriteSpaRequest(context);
         if(!shouldStop)
@@ -36,11 +32,11 @@ namespace YesSpa.AspNetCore
       // Serve it as a static file
       // Developers who need to host more than one SPA with distinct default pages can
       // override the file provider
-      app.UseStaticFiles(staticFileOptions);
+      applicationBuilder.UseStaticFiles(staticFileOptions);
 
       // If the default file didn't get served as a static file (usually because it was not
       // present on disk), the SPA is definitely not going to work.
-      app.Use((context, next) =>
+      applicationBuilder.Use((context, next) =>
       {
         var message = "The SPA default page middleware could not return the default page " +
                       $"because it was not found, and no other middleware " +

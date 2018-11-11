@@ -1,14 +1,23 @@
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Builder;
 
 namespace YesSpa.Common.Configuration
 {
+  /// <summary>
+  /// Run-time configuration for YesSpa
+  /// </summary>
   public interface IYesSpaConfiguration
   {
     /// <summary>
-    /// Check SpaSettings for more info on parameters
+    /// Run-time options for hosting SPA(s).
     /// </summary>
-    void AddSpa(string rootUrlPath, string embeddedUrlRoot);
+    YesSpaOptions Options { get; }
 
-    IReadOnlyList<IDefaultPageRewrite> SpaDefaultPageRewrites { get; }
+    IList<IDefaultPageRewrite> CreateDefaultPageRewrites();
+    
+    /// <summary>
+    /// Call in Configure() stage to attach an SPA middleware
+    /// </summary>
+    void UseYesSpa(IApplicationBuilder applicationBuilder);
   }
 }

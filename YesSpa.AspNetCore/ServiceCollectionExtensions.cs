@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Extensions.DependencyInjection;
 using YesSpa.Common.Configuration;
 
@@ -9,9 +10,19 @@ namespace YesSpa.AspNetCore
     /// Call in Startup.ConfigureServices() to add YesSpa-specific services to application
     /// SPAs should be registered in corresponding ABP modules
     /// </summary>
-    public static void AddYesSpa(this IServiceCollection services)
+    public static IYesSpaBuilder AddYesSpa(this IServiceCollection services, Action<IYesSpaBuilder> builderCallback)
     {
-      services.AddSingleton<IYesSpaConfiguration, YesSpaConfigurationAspNetCore>();
+
+      if(builderCallback == null)
+        throw new ArgumentException(nameof(builderCallback));
+
+      var spaBuilder = new YesSpaBuilderAspNetCore();
+      builderCallback(spaBuilder);
+
+      var yesSpaConfiguration = spaBuilder.BuildConfiguration();
+      services.AddSingleton<IYesSpaConfiguration>(yesSpaConfiguration);
+
+      return spaBuilder;
     }
   }
 }
