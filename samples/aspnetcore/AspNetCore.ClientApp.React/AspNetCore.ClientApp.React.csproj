@@ -8,7 +8,7 @@
 
   <!-- YesSpa build -->
   <PropertyGroup>
-    <YesSpaEnabled>true</YesSpaEnabled>
+    <YesSpaEnabled>false</YesSpaEnabled>
     <YesSpaBuildTools>react</YesSpaBuildTools>
   </PropertyGroup>
 

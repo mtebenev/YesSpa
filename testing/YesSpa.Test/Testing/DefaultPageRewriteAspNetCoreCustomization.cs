@@ -11,10 +11,23 @@ namespace YesSpa.Test.Testing
     public string RootUrlPath { get; set; }
     public string DefaultPagePath { get; set; }
 
+    /// <summary>
+    /// Optionally set a path to an embedded file
+    /// </summary>
+    public string EmbeddedFilePath { get; set; }
+
     public void Customize(IFixture fixture)
     {
       var mockEmbeddedFileProvider = new Mock<IFileProvider>();
-      mockEmbeddedFileProvider.Setup(x => x.GetFileInfo(It.IsAny<string>())).Returns<IFileInfo>(null);
+      mockEmbeddedFileProvider.Setup(x => x.GetFileInfo(It.IsAny<string>()))
+        .Returns<string>(path =>
+        {
+          var mockFileInfo = new Mock<IFileInfo>();
+          var isResourceExists = (!String.IsNullOrEmpty(EmbeddedFilePath) && EmbeddedFilePath == path);
+          mockFileInfo.SetupGet(x => x.Exists).Returns(isResourceExists);
+
+          return mockFileInfo.Object;
+        });
 
       fixture
         .Customize<DefaultPageRewriteAspNetCore>(c => c.FromFactory(

@@ -8,7 +8,7 @@
 
   <!-- YesSpa build -->
   <PropertyGroup>
-    <YesSpaEnabled>true</YesSpaEnabled>
+    <YesSpaEnabled>false</YesSpaEnabled>
     <YesSpaBuildTools>angular</YesSpaBuildTools>
     <YesSpaAngularBaseHref>/angular/</YesSpaAngularBaseHref>
     <YesSpaAngularDeployUrl>/.Modules/AspNetCore.ClientApp.Angular/dist/aspnetcore-clientapp-angular/</YesSpaAngularDeployUrl>

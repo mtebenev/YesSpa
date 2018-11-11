@@ -15,20 +15,23 @@ namespace YesSpa.Test.AspNetCore
     public void Should_Work_With_Non_Root_Paths()
     {
       var fixture = new Fixture()
-        .Customize(new DefaultPageRewriteAspNetCoreCustomization {RootUrlPath = "/react/", DefaultPagePath = "/embedded-path"})
-        .Customize(new SpaPageWriterCustomization());
+        .Customize(new DefaultPageRewriteAspNetCoreCustomization {RootUrlPath = "/react/", DefaultPagePath = "/embedded-path"});
 
       var sut = fixture.Create<DefaultPageRewriteAspNetCore>();
-      string newPathRequest;
 
-      Assert.True(sut.MatchRequest(new PathString("/react"), out newPathRequest));
-      Assert.Equal("/embedded-path/index.html", newPathRequest);
+      var matchResult = sut.MatchRequest(new PathString("/react"));
+      Assert.True(matchResult.matches);
+      Assert.Equal("/embedded-path/index.html", matchResult.newPath);
 
-      Assert.True(sut.MatchRequest(new PathString("/react/"), out newPathRequest));
-      Assert.Equal("/embedded-path/index.html", newPathRequest);
+      matchResult = sut.MatchRequest(new PathString("/react/"));
+      Assert.True(matchResult.matches);
+      Assert.Equal("/embedded-path/index.html", matchResult.newPath);
 
-      Assert.False(sut.MatchRequest(new PathString("/another/path"), out newPathRequest));
-      Assert.False(sut.MatchRequest(new PathString("/"), out newPathRequest));
+      matchResult = sut.MatchRequest(new PathString("/another/path"));
+      Assert.False(matchResult.matches);
+
+      matchResult = sut.MatchRequest(new PathString("/"));
+      Assert.False(matchResult.matches);
     }
 
     /// <summary>
@@ -41,13 +44,14 @@ namespace YesSpa.Test.AspNetCore
         .Customize(new DefaultPageRewriteAspNetCoreCustomization { RootUrlPath = "/", DefaultPagePath = "/embedded-path" });
 
       var sut = fixture.Create<DefaultPageRewriteAspNetCore>();
-      string newPathRequest;
 
-      Assert.True(sut.MatchRequest(new PathString("/"), out newPathRequest));
-      Assert.Equal("/embedded-path/index.html", newPathRequest);
+      var matchResult = sut.MatchRequest(new PathString("/"));
+      Assert.True(matchResult.matches);
+      Assert.Equal("/embedded-path/index.html", matchResult.newPath);
 
-      Assert.True(sut.MatchRequest(new PathString("/another/path"), out newPathRequest));
-      Assert.Equal("/embedded-path/index.html", newPathRequest);
+      matchResult = sut.MatchRequest(new PathString("/another/path"));
+      Assert.True(matchResult.matches);
+      Assert.Equal("/embedded-path/index.html", matchResult.newPath);
     }
 
     /// <summary>
@@ -60,22 +64,62 @@ namespace YesSpa.Test.AspNetCore
         .Customize(new DefaultPageRewriteAspNetCoreCustomization { RootUrlPath = "/angular", DefaultPagePath = "/embedded-path" });
 
       var sut = fixture.Create<DefaultPageRewriteAspNetCore>();
-      string newPathRequest;
 
-      Assert.True(sut.MatchRequest(new PathString("/angular/"), out newPathRequest));
-      Assert.Equal("/embedded-path/index.html", newPathRequest);
+      var matchResult = sut.MatchRequest(new PathString("/angular/"));
+      Assert.True(matchResult.matches);
+      Assert.Equal("/embedded-path/index.html", matchResult.newPath);
 
-      Assert.True(sut.MatchRequest(new PathString("/angular/module1"), out newPathRequest));
-      Assert.Equal("/embedded-path/index.html", newPathRequest);
+      matchResult = sut.MatchRequest(new PathString("/angular/module1"));
+      Assert.True(matchResult.matches);
+      Assert.Equal("/embedded-path/index.html", matchResult.newPath);
 
-      Assert.True(sut.MatchRequest(new PathString("/angular/module1/"), out newPathRequest));
-      Assert.Equal("/embedded-path/index.html", newPathRequest);
+      matchResult = sut.MatchRequest(new PathString("/angular/module1/"));
+      Assert.True(matchResult.matches);
+      Assert.Equal("/embedded-path/index.html", matchResult.newPath);
 
-      Assert.True(sut.MatchRequest(new PathString("/angular/module2"), out newPathRequest));
-      Assert.Equal("/embedded-path/index.html", newPathRequest);
+      matchResult = sut.MatchRequest(new PathString("/angular/module2"));
+      Assert.True(matchResult.matches);
+      Assert.Equal("/embedded-path/index.html", matchResult.newPath);
 
-      Assert.True(sut.MatchRequest(new PathString("/angular/module2/"), out newPathRequest));
-      Assert.Equal("/embedded-path/index.html", newPathRequest);
+      matchResult = sut.MatchRequest(new PathString("/angular/module2/"));
+      Assert.True(matchResult.matches);
+      Assert.Equal("/embedded-path/index.html", matchResult.newPath);
+    }
+
+    [Fact]
+    public void Should_Return_Index_If_No_Embedded_Resource()
+    {
+      var fixture = new Fixture()
+        .Customize(new DefaultPageRewriteAspNetCoreCustomization
+        {
+          RootUrlPath = "/angular",
+          DefaultPagePath = "/embedded-path",
+          EmbeddedFilePath = "/embedded-resource"
+        });
+
+      var sut = fixture.Create<DefaultPageRewriteAspNetCore>();
+
+      var matchResult = sut.MatchRequest(new PathString("/angular/some-page"));
+      Assert.True(matchResult.matches);
+      Assert.Equal("/embedded-path/index.html", matchResult.newPath);
+    }
+
+    [Fact]
+    public void Should_Return_Embedded_Resource()
+    {
+      var fixture = new Fixture()
+        .Customize(new DefaultPageRewriteAspNetCoreCustomization
+        {
+          RootUrlPath = "/angular",
+          DefaultPagePath = "/embedded-path",
+          EmbeddedFilePath = "/embedded-path/embedded-resource"
+        });
+
+      var sut = fixture.Create<DefaultPageRewriteAspNetCore>();
+
+      var matchResult = sut.MatchRequest(new PathString("/angular/embedded-resource"));
+      Assert.True(matchResult.matches);
+      Assert.Equal("/embedded-path/embedded-resource", matchResult.newPath);
     }
   }
 }
