@@ -22,9 +22,9 @@ namespace YesSpa.Common.Configuration
     public string DefaultPagePath { get; }
     public string IndexPageFileName { get; }
 
-    public bool MatchRequest(PathString requestPath, out string newRequestPath)
+    public (bool matches, string newPath) MatchRequest(PathString requestPath)
     {
-      newRequestPath = null;
+      string newRequestPath = null;
       var trimmedRequestPath = requestPath.Value.Trim('/');
       bool result = false;
 
@@ -53,7 +53,7 @@ namespace YesSpa.Common.Configuration
         }
       }
 
-      return result;
+      return (result, newRequestPath);
     }
 
     /// <summary>

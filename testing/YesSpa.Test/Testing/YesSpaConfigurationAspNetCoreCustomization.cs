@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using Moq;
-using YesSpa.AspNetCore;
 using YesSpa.Common.Configuration;
 
 namespace YesSpa.Test.Testing
@@ -14,6 +14,7 @@ namespace YesSpa.Test.Testing
     {
       SpaSettings = new List<SpaSettings>();
       EmbeddedResources = new List<string>();
+      RewritePaths = new Dictionary<string, string>();
     }
 
     public IList<SpaSettings> SpaSettings { get; set; }
@@ -23,9 +24,20 @@ namespace YesSpa.Test.Testing
     /// </summary>
     public IList<string> EmbeddedResources { get; }
 
+    /// <summary>
+    /// Simulates default page rewriters (request path -> result paths)
+    /// </summary>
+    public Dictionary<string, string> RewritePaths { get; }
+
     public YesSpaConfigurationAspNetCoreCustomization WithEmbeddedResource(string path)
     {
       EmbeddedResources.Add(path);
+      return this;
+    }
+
+    public YesSpaConfigurationAspNetCoreCustomization WithDefaultPageRewrite(string requestPath, string resultPath)
+    {
+      RewritePaths[requestPath] = resultPath;
       return this;
     }
 
@@ -45,13 +57,20 @@ namespace YesSpa.Test.Testing
               : null;
           });
 
-        var configuration = new YesSpaConfigurationAspNetCore(mockEmbeddedFileProvider.Object);
-        foreach (var setting in SpaSettings)
-        {
-          configuration.AddSpa(setting.RootUrlPath, setting.EmbeddedUrlRoot);
-        }
+        var mockDefaultPageRewrite = new Mock<IDefaultPageRewrite>();
+        mockDefaultPageRewrite.Setup(x => x.MatchRequest(It.IsAny<PathString>()))
+          .Returns<PathString>(requestPath =>
+          {
+            return RewritePaths.ContainsKey(requestPath)
+              ? (true, RewritePaths[requestPath])
+              : (false, null);
+          });
 
-        return configuration;
+        var configuration = new Mock<IYesSpaConfiguration>();
+        IList<IDefaultPageRewrite> defaultPageRewrites = new List<IDefaultPageRewrite> {mockDefaultPageRewrite.Object};
+        configuration.Setup(x => x.CreateDefaultPageRewrites()).Returns(defaultPageRewrites);
+
+        return configuration.Object;
       });
     }
   }

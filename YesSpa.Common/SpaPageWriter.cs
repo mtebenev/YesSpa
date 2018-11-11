@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -43,10 +42,16 @@ namespace YesSpa.Common
     {
       var result = false;
 
-      string newRequestPath = null;
-      var pageRewrite = _defaultPageRewrites.FirstOrDefault(r => r.MatchRequest(context.Request.Path, out newRequestPath));
-      _logRequestMatch(_logger, context.Request.Path.Value, pageRewrite != null, null);
-      if(pageRewrite != null)
+      (bool matches, string newPath) matchResult = (false, null);
+      foreach(var rewrite in _defaultPageRewrites)
+      {
+        matchResult = rewrite.MatchRequest(context.Request.Path);
+        if(matchResult.matches)
+          break;
+      }
+
+      _logRequestMatch(_logger, context.Request.Path.Value, matchResult.matches, null);
+      if(matchResult.matches)
       {
         // Rewrite URL in production, stub page in development environment
         if(_useStubPage && _isDevelopmentEnvironment)
@@ -56,7 +61,7 @@ namespace YesSpa.Common
         }
         else
         {
-          context.Request.Path = newRequestPath; // Rewrite url, don't stop processing
+          context.Request.Path = matchResult.newPath; // Rewrite url, don't stop processing
         }
       }
 

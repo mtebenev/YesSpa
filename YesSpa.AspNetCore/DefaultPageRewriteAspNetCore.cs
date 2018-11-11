@@ -15,7 +15,7 @@ namespace YesSpa.AspNetCore
     protected override bool IsEmbeddedResourceExists(string path)
     {
       var fileInfo = _embeddedFileProvider.GetFileInfo(path);
-      return fileInfo != null;
+      return fileInfo != null && fileInfo.Exists;
     }
   }
 }

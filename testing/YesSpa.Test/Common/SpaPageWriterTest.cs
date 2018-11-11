@@ -26,8 +26,8 @@ namespace YesSpa.Test.Common
 
       var mockEmbeddedFileProvider = new Mock<IFileProvider>();
       var mockSpaConfiguration = new Mock<IYesSpaConfiguration>();
-      mockSpaConfiguration.SetupGet(x => x.SpaDefaultPageRewrites)
-        .Returns(new List<DefaultPageRewriteAspNetCore> {new DefaultPageRewriteAspNetCore("/test-request", "/page-path", "index.html", mockEmbeddedFileProvider.Object)});
+      mockSpaConfiguration.Setup(x => x.CreateDefaultPageRewrites())
+        .Returns(new List<IDefaultPageRewrite> {new DefaultPageRewriteAspNetCore("/test-request", "/page-path", "index.html", mockEmbeddedFileProvider.Object)});
 
       fixture.Register(() => mockSpaConfiguration.Object);
       var httpContext = fixture.Create<HttpContext>();
@@ -48,8 +48,8 @@ namespace YesSpa.Test.Common
 
       var mockEmbeddedFileProvider = new Mock<IFileProvider>();
       var mockSpaConfiguration = fixture.Freeze<Mock<IYesSpaConfiguration>>();
-      mockSpaConfiguration.SetupGet(x => x.SpaDefaultPageRewrites)
-        .Returns(new List<DefaultPageRewriteAspNetCore> { new DefaultPageRewriteAspNetCore("/test-request", "/page-path", "index.html", mockEmbeddedFileProvider.Object) });
+      mockSpaConfiguration.Setup(x => x.CreateDefaultPageRewrites())
+        .Returns(new List<IDefaultPageRewrite> {new DefaultPageRewriteAspNetCore("/test-request", "/page-path", "index.html", mockEmbeddedFileProvider.Object)});
 
       var httpContext = fixture.Create<HttpContext>();
       var sut = fixture.Create<SpaPageWriter>();
@@ -70,8 +70,8 @@ namespace YesSpa.Test.Common
       var mockStubPageWriter = fixture.Freeze<Mock<IStubPageWriter>>();
       var mockEmbeddedFileProvider = new Mock<IFileProvider>();
       var mockSpaConfiguration = fixture.Freeze<Mock<IYesSpaConfiguration>>();
-      mockSpaConfiguration.SetupGet(x => x.SpaDefaultPageRewrites)
-        .Returns(new List<DefaultPageRewriteAspNetCore> { new DefaultPageRewriteAspNetCore("/test-request", "/page-path", "index.html", mockEmbeddedFileProvider.Object) });
+      mockSpaConfiguration.Setup(x => x.CreateDefaultPageRewrites())
+        .Returns(new List<IDefaultPageRewrite> {new DefaultPageRewriteAspNetCore("/test-request", "/page-path", "index.html", mockEmbeddedFileProvider.Object)});
 
       var httpContext = fixture.Create<HttpContext>();
       var sut = fixture.Create<SpaPageWriter>();
@@ -82,16 +82,16 @@ namespace YesSpa.Test.Common
     }
 
     /// <summary>
-    /// If there's angular SPA configured for '/angular' path, should output 'index.html' path
+    /// If there's no a matcher for the request, should output the path as requested
     /// </summary>
     [Fact]
     public async Task Should_Output_Default_Spa_Page()
     {
       var fixture = new Fixture()
-        .Customize(new AutoMoqCustomization { ConfigureMembers = true })
-        .Customize(new SpaPageWriterCustomization { IsDevelopmentEnvironment = false, UseStubPage = false })
-        .WithHttpContext("/angular")
-        .WithYesSpaConfigurationAngular();
+        .Customize(new AutoMoqCustomization {ConfigureMembers = true})
+        .Customize(new SpaPageWriterCustomization {IsDevelopmentEnvironment = false, UseStubPage = false})
+        .WithYesSpaConfigurationAngular()
+        .WithHttpContext("/some-page");
 
       var sut = fixture.Create<SpaPageWriter>();
 
@@ -99,7 +99,7 @@ namespace YesSpa.Test.Common
       var shouldStop = await sut.TryRewriteSpaRequest(httpContext);
 
       Assert.False(shouldStop);
-      Assert.Equal("/.Modules/module/dist/app/index.html", httpContext.Request.Path);
+      Assert.Equal("/some-page", httpContext.Request.Path);
     }
 
     /// <summary>
@@ -109,10 +109,11 @@ namespace YesSpa.Test.Common
     public async Task Should_Output_Asset_File()
     {
       var fixture = new Fixture()
-        .Customize(new AutoMoqCustomization { ConfigureMembers = true })
-        .Customize(new SpaPageWriterCustomization { IsDevelopmentEnvironment = false, UseStubPage = false})
-        .WithHttpContext("/angular/favicon.ico")
-        .WithYesSpaConfigurationAngular(c => c.WithEmbeddedResource("/.Modules/module/dist/app/favicon.ico"));
+        .Customize(new AutoMoqCustomization {ConfigureMembers = true})
+        .Customize(new SpaPageWriterCustomization {IsDevelopmentEnvironment = false, UseStubPage = false})
+        .WithYesSpaConfigurationAngular(c => c
+          .WithDefaultPageRewrite("/angular/favicon.ico", "/.Modules/module/dist/app/favicon.ico"))
+        .WithHttpContext("/angular/favicon.ico");
 
       var sut = fixture.Create<SpaPageWriter>();
 
