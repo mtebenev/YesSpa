@@ -55,14 +55,15 @@ The following needed in order to use YesSpa in your application:
 3. Add the following to **Startup.ConfigureServices()**
 
 ```csharp
-  services.AddYesSpa();
+  services.AddYesSpa(builder =>
+  {
+    builder.AddSpa(Assembly.GetAssembly(typeof(ClientAppModuleReact)), "/", 
+    "/.Modules/ClientApp.React/build");
+  });
 ```
 4. Add the following to **Startup.Configure()**
 ```csharp
-  app.UseSpa(builder =>
-  {
-    builder.AddSpa(Assembly.GetAssembly(typeof(ClientAppModuleReact)), "/", "/.Modules/ClientApp.React/build");
-  });
+  app.UseYesSpa();
 ```
 This should be the last middleware in ASP.NET Core middleware chain.
 The call configures middleware serving SPA and tells YesSpa how to get access to the embedded SPA files:
